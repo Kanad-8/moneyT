@@ -1,0 +1,118 @@
+$gap:    1.25rem;
+$gap-lg: 1.5rem;
+$radius: 0.75rem;
+
+// ─── Page grid ───────────────────────────────────────────────────────────────
+.dashboard-container {
+  display: grid;
+  gap: $gap;
+  padding: $gap-lg;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "filters filters"
+    "main    sidebar";
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+    grid-template-areas: "filters" "sidebar" "main";
+  }
+}
+
+// ─── Filter section ───────────────────────────────────────────────────────────
+.filter-section {
+  grid-area:  filters;
+  width:      100%;
+  min-width:  0;   // prevents grid blowout
+
+  // Stretch the FilterBar host element full width
+  app-filter-bar {
+    display: block;
+    width:   100%;
+  }
+}
+
+.filter-row {
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  gap:             $gap;
+  flex-wrap:       wrap;
+}
+
+// ─── Tab bar ──────────────────────────────────────────────────────────────────
+.tab-bar {
+  display:       flex;
+  gap:           0.25rem;
+  background:    #f3f4f6;
+  border-radius: 0.625rem;
+  padding:       0.25rem;
+  width:         fit-content;
+}
+
+.tab {
+  display:       inline-flex;
+  align-items:   center;
+  gap:           0.375rem;
+  padding:       0.4375rem 1rem;
+  font-size:     0.875rem;
+  font-weight:   600;
+  border-radius: 0.5rem;
+  border:        none;
+  background:    transparent;
+  color:         #6b7280;
+  cursor:        pointer;
+  font-family:   inherit;
+  transition:    all 0.15s ease;
+
+  .material-symbols-outlined { font-size: 1.0625rem; }
+
+  &:hover { color: #374151; }
+
+  // Active — expense: indigo
+  &.active-expense {
+    background: #ffffff;
+    color:      #4f46e5;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  }
+
+  // Active — income: emerald
+  &.active-income {
+    background: #ffffff;
+    color:      #059669;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  }
+}
+
+
+
+// ─── Main content ─────────────────────────────────────────────────────────────
+.main-content {
+  grid-area:  main;
+  min-height: 500px;
+
+  .card { height: 100%; }
+}
+
+// ─── Sidebar ─────────────────────────────────────────────────────────────────
+.right-sidebar {
+  grid-area:      sidebar;
+  display:        flex;
+  flex-direction: column;
+  gap:            $gap;
+}
+
+.stats-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $gap;
+}
+
+// ─── Card ─────────────────────────────────────────────────────────────────────
+.card {
+  background:    #ffffff;
+  border-radius: $radius;
+  box-shadow:    0 1px 3px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.04);
+  border:        1px solid #f3f4f6;
+  overflow:      hidden;
+}

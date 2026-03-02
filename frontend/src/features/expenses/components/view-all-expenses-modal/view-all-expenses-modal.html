@@ -1,0 +1,125 @@
+<div class="modal-backdrop" (click)="onClose()"></div>
+
+<div class="modal-container">
+  
+  <!-- Header -->
+  <div class="modal-header">
+    <h2>All Expenses</h2>
+    <button class="close-btn" (click)="onClose()">
+      <span class="material-icons">close</span>
+    </button>
+  </div>
+
+  <!-- Filters Toolbar -->
+  <div class="modal-toolbar">
+    
+    <!-- Date Range Inputs -->
+    <div class="date-range-wrapper">
+      <div class="input-group">
+        <label for="start-date">Start Date</label>
+        <input 
+          type="date" 
+          id="start-date" 
+          [(ngModel)]="startDate"
+        >
+      </div>
+      
+      <span class="separator">to</span>
+
+      <div class="input-group">
+        <label for="end-date">End Date</label>
+        <input 
+          type="date" 
+          id="end-date" 
+          [(ngModel)]="endDate"
+        >
+      </div>
+    </div>
+
+    <!-- Category Filter -->
+    <div class="filter-wrapper">
+      <label for="category-input" class="filter-label">Category</label>
+      <input 
+        type="text" 
+        id="category-input"
+        placeholder="Search category..."
+        [(ngModel)]="selectedCategory" 
+        appNormalizeInput
+      >
+    </div>
+
+    <!-- Apply Button -->
+    <div class="actions-wrapper">
+      <button class="btn-apply" (click)="onFilterChange()">
+        Apply
+      </button>
+      
+      <!-- Reset (Optional, only show if filters exist) -->
+      <!-- <button class="btn-reset" *ngIf="startDate || endDate || selectedCategory" (click)="resetFilters()">
+        Reset
+      </button> -->
+    </div>
+
+  </div>
+
+  <!-- Table Body -->
+  <div class="table-container">
+    <table class="expense-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Category</th>
+          <th>Description</th>
+          <th class="text-right">Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Loading State -->
+        <tr *ngIf="isLoading">
+          <td colspan="4" class="text-center py-4">Loading...</td>
+        </tr>
+
+        <!-- Empty State -->
+        <tr *ngIf="!isLoading && expenses.length === 0">
+          <td colspan="4" class="text-center py-4 text-gray-500">No expenses found for this period.</td>
+        </tr>
+
+        <!-- Data Rows -->
+        <tr *ngFor="let expense of expenses">
+          <td class="text-gray-600">{{ formatDate(expense.date) }}</td>
+          <td>
+            <span class="category-badge">{{ expense.category }}</span>
+          </td>
+          <td class="text-gray-800">{{ expense.description || '-' }}</td>
+          <td class="text-right font-medium text-gray-900">
+            ₹{{ expense.amount | number:'1.2-2' }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination Footer -->
+  <div class="modal-footer">
+    <span class="page-info">
+      Showing {{ (currentPage - 1) * pageSize + 1 }} - {{ (currentPage * pageSize) > totalItems ? totalItems : (currentPage * pageSize) }} of {{ totalItems }}
+    </span>
+    
+    <div class="pagination-controls">
+      <button 
+        [disabled]="currentPage === 1" 
+        (click)="onPrevPage()" 
+        class="pagination-btn">
+        Previous
+      </button>
+      <span class="current-page">{{ currentPage }}</span>
+      <button 
+        [disabled]="currentPage * pageSize >= totalItems" 
+        (click)="onNextPage()" 
+        class="pagination-btn">
+        Next
+      </button>
+    </div>
+  </div>
+
+</div>

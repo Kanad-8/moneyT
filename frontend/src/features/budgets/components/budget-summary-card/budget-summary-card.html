@@ -1,0 +1,41 @@
+<div class="budget-card">
+  
+  <div class="header">
+    <div class="title-group">
+      <h3>Total Remaining</h3>
+      <span class="subtext">
+        of {{ summary.totalBudgeted | currency:'INR' }} Total Budgeted
+      </span>
+    </div>
+    
+    <div class="big-amount">
+      {{ summary.remaining | currency:'INR' }}
+    </div>
+  </div>
+
+  <div class="progress-track">
+    <div class="progress-fill" [style.width.%]="progressPercentage"></div>
+  </div>
+
+  <div class="stats-grid">
+    
+    <div class="stat-item">
+      <span class="label">Total Budgeted</span>
+      <span class="value">{{ summary.totalBudgeted | currency:'INR' }}</span>
+    </div>
+
+    <div class="stat-item center-border">
+      <span class="label">Total Spent</span>
+      <span class="value">{{ summary.totalSpent | currency:'INR' }}</span>
+    </div>
+
+    <div class="stat-item">
+      <span class="label">Remaining</span>
+      <span class="value highlight-green">
+        {{ summary.remaining | currency:'INR' }}
+      </span>
+    </div>
+
+  </div>
+
+</div>

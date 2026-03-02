@@ -1,0 +1,123 @@
+$top-bar-height: 4rem; // h-16
+$content-bg: #ffffff; // bg-white
+$border-color: #e5e7eb; // border-gray-200
+$primary-color: #4f46e5; // bg-indigo-600
+$primary-color-hover: #4338ca; // hover:bg-indigo-700
+$text-primary: #111827; // text-gray-900
+$text-secondary: #6b7280; // text-gray-500
+
+.top-bar {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  height: $top-bar-height;
+  background-color: $content-bg;
+  border-bottom: 1px solid $border-color;
+  padding: 0.5rem; // px-6
+  flex-shrink: 0; // Prevents shrinking
+
+  .top-bar-left {
+    display: flex;
+    align-items: center;
+  }
+
+  .page-title {
+    font-size: 1.25rem; // text-xl
+    font-weight: 600; // font-semibold
+    color: $text-primary;
+    margin: 0;
+    margin-left: 1rem; // ml-4
+  }
+
+  .top-bar-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem; // space-x-4
+    padding:1.5rem;
+  }
+}
+
+.button-primary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $primary-color;
+  color: #ffffff;
+  padding: 0.5rem 1rem; // px-4 py-2
+  border-radius: 0.5rem; // rounded-lg
+  font-size: 0.875rem; // text-sm
+  font-weight: 500; // font-medium
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  .material-symbols-outlined {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  &:hover {
+    background-color: $primary-color-hover;
+  }
+}
+
+.icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  
+  padding: 1rem; // Was 2rem
+  border-radius: 999px; // rounded-full
+  background-color: transparent;
+  border: none;
+  color: $text-secondary;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+
+  .material-symbols-outlined {
+    font-size: 2rem; 
+  }
+
+  &:hover {
+    background-color: #f3f4f6; // hover:bg-gray-100
+    color: $text-primary;
+  }
+}
+
+// ─── Action buttons ───────────────────────────────────────────────────────────
+.action-buttons {
+  display:    flex;
+  gap:        0.625rem;
+  flex-shrink: 0;
+}
+
+.btn {
+  display:       inline-flex;
+  align-items:   center;
+  gap:           0.25rem;
+  padding:       0.5rem 1rem;
+  font-size:     0.875rem;
+  font-weight:   600;
+  border-radius: 0.5rem;
+  border:        none;
+  cursor:        pointer;
+  font-family:   inherit;
+  transition:    background-color 0.15s, box-shadow 0.15s;
+
+  .material-symbols-outlined { font-size: 1.0625rem; }
+}
+
+.btn-expense {
+  background: #4f46e5;
+  color:      #ffffff;
+  box-shadow: 0 1px 3px rgba(79, 70, 229, 0.35);
+  &:hover { background: #4338ca; }
+}
+
+.btn-income {
+  background: #059669;
+  color:      #ffffff;
+  box-shadow: 0 1px 3px rgba(5, 150, 105, 0.35);
+  &:hover { background: #047857; }
+}

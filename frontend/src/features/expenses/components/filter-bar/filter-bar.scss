@@ -1,0 +1,213 @@
+// 1. Variables
+$primary-color: #4f46e5; 
+$primary-hover: #4338ca;
+$text-dark: #1f2937;
+$text-light: #6b7280;
+$border-color: #e5e7eb;
+$bg-white: #ffffff;
+$bg-input: #f9fafb; // Light gray background for search input
+$shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+// 2. Main Container
+.filter-bar {
+  background-color: $bg-white;
+  border: 1px solid $border-color;
+  border-radius: 0.75rem;
+  box-shadow: $shadow-sm;
+  padding: 1rem 1.5rem;
+  margin-bottom: 20px;
+  
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  &__title {
+    h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: $text-dark;
+      margin: 0;
+    }
+  }
+
+  &__divider {
+    display: none;
+    @media (min-width: 768px) {
+      display: block;
+      width: 1px;
+      height: 2.5rem;
+      background-color: $border-color;
+      margin: 0 0.5rem;
+    }
+  }
+
+  &__controls {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+
+    @media (min-width: 768px) {
+      flex-direction: row;
+      align-items: center;
+      flex: 1; 
+    }
+  }
+
+  // --- Filter Groups ---
+  .filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+
+    label {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: $text-light;
+      margin-left: 0.25rem; // Align label with input padding
+    }
+
+    .select-wrapper {
+      position: relative;
+      
+      // Styling specifically for the search input look
+      input {
+        appearance: none;
+        background-color: $bg-input; // Light gray background
+        border: 1px solid $border-color; // Subtle border
+        border-radius: 2rem; // Pill shape for search bar feel
+        font-size: 0.875rem; // Slightly smaller text
+        font-weight: 500;
+        color: $text-dark;
+        padding: 0.5rem 1rem; // Comfortable padding
+        padding-right: 2.5rem; // Space for search icon on the right
+        cursor: text;
+        outline: none;
+        width: 100%;
+        transition: all 0.2s ease;
+
+        // Reduce width on desktop to look like a small search bar
+        @media (min-width: 768px) {
+          width: 12rem; 
+        }
+
+        // Placeholder color
+        &::placeholder {
+          color: $text-light;
+          font-weight: 400;
+        }
+
+        // Focus state: White background, primary border, shadow
+        &:focus {
+          background-color: $bg-white;
+          border-color: $primary-color;
+          box-shadow: 0 0 0 2px rgba($primary-color, 0.1);
+        }
+      }
+
+      // Keep Select dropdown clean (minimal style) or match input style if desired
+      // For now, keeping select distinct but aligned
+      select {
+        appearance: none;
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid transparent;
+        font-size: 0.95rem;
+        font-weight: 500;
+        color: $text-dark;
+        padding: 0.25rem 0;
+        padding-right: 1.5rem;
+        cursor: pointer;
+        outline: none;
+        width: 100%;
+        transition: border-color 0.2s, color 0.2s;
+
+        option {
+          color: $text-dark;
+          background-color: $bg-white;
+        }
+
+        &:hover, &:focus {
+          color: $text-dark;
+          border-bottom-color: $border-color;
+        }
+      }
+
+      // --- Icons ---
+      
+      // Arrow for Select
+      .arrow-icon {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        pointer-events: none;
+        color: $text-dark;
+        transition: color 0.2s ease;
+        
+        svg {
+          width: 1rem;
+          height: 1rem;
+          fill: currentColor;
+        }
+      }
+      
+      // Search Icon for Input
+      .search-icon {
+        position: absolute;
+        right: 0.75rem; // Position in the corner (inside padding)
+        top: 50%;
+        transform: translateY(-50%);
+        pointer-events: none;
+        color: $text-light; // Start with lighter color
+        transition: color 0.2s ease;
+        
+        svg {
+          width: 1.125rem;
+          height: 1.125rem;
+          fill: currentColor;
+        }
+      }
+
+      // Hover effects
+      &:hover {
+        .arrow-icon { color: $primary-color; }
+        // Only change search icon color if input is focused or hovered
+        input:focus + .search-icon, input:hover + .search-icon { color: $primary-color; }
+      }
+    }
+  }
+
+  &__actions {
+    width: 100%;
+    @media (min-width: 768px) {
+      width: auto;
+      margin-left: auto; 
+    }
+
+    .btn-apply {
+      width: 100%;
+      background-color: $primary-color;
+      color: white;
+      border: none;
+      padding: 0.5rem 1.5rem;
+      border-radius: 0.5rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: $primary-hover;
+      }
+
+      @media (min-width: 768px) {
+        width: auto;
+      }
+    }
+  }
+}

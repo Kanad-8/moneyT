@@ -1,0 +1,289 @@
+// // Variables
+// $gap: 1.5rem;
+// $bg-color: #f9fafb;
+// $text-dark: #0f172a;
+
+// // Host Component
+// :host {
+//   display: block;
+//   height: 100%;
+//   //overflow-y: scroll;
+//   overflow-x: hidden;
+//   font-family: 'Inter', sans-serif;
+//   background-color: $bg-color;
+// }
+
+// // Content Wrapper
+// .dashboard-container {
+//   padding: 2rem;
+//   background: $bg-color;
+//   min-height: 100%;
+//   box-sizing: border-box;
+// }
+
+// // =====================
+// // MAIN LAYOUT GRID
+// // =====================
+// .dashboard-layout {
+//   display: grid;
+//   // Large Left Column (2.5 parts) | Small Right Column (1 part)
+//   grid-template-columns: 2.5fr 1fr; 
+//   gap: $gap;
+//   align-items: start; // Align items to top
+// }
+
+// // =====================
+// // LEFT COLUMN (Main Content)
+// // =====================
+// .left-column {
+//   display: flex;
+//   flex-direction: column;
+//   gap: $gap;
+// }
+
+// // 1. Stats Row (4 Cards)
+// .stats-row {
+//   display: grid;
+//   // 4 cards in a single row
+//   grid-template-columns: repeat(4, 1fr); 
+//   gap: $gap;
+//   padding-bottom: $gap;
+
+//   > * {
+//     height: 100%;
+//     min-height: 140px; // Ensure uniformity
+//   }
+// }
+
+// // 2. Transactions Section
+// .transactions-section {
+//   // Allows the list to take natural height
+//   width: 100%;
+// }
+
+// // 3. Forecast Section
+// .forecast-section {
+//   width: 100%;
+// }
+
+// // =====================
+// // RIGHT COLUMN (Sidebar)
+// // =====================
+// .right-column {
+//   display: flex;
+//   flex-direction: column;
+//   gap: $gap;
+  
+//   // Make charts/cards fill the column width
+//   > section {
+//     width: 100%;
+//   }
+// }
+
+// // Specific heights for charts to ensure they render well
+// .chart-section {
+//   max-height: 350px;
+//   min-height: 140px;
+// }
+
+
+
+// .safe-limit-section {
+//   // Ensure the stat card looks consistent
+//   min-height: 140px;
+// }
+
+
+// // =====================
+// // RESPONSIVE DESIGN
+// // =====================
+
+// // Large Tablets / Small Laptops
+// @media (max-width: 1280px) {
+//   // Stack the Stats Row into 2x2 grid
+//   .stats-row {
+//     grid-template-columns: repeat(2, 1fr);
+//   }
+// }
+
+// // Tablets & Mobile (Stack Columns)
+// @media (max-width: 1024px) {
+//   .dashboard-layout {
+//     grid-template-columns: 1fr; // Single column layout
+//   }
+
+//   // On mobile, the "Right Column" becomes the "Bottom Section"
+//   .right-column {
+//     margin-top: $gap;
+//   }
+// }
+
+// // Mobile Phones
+// @media (max-width: 600px) {
+//   .dashboard-container {
+//     padding: 1rem;
+//   }
+
+//   .stats-row {
+//     grid-template-columns: 1fr; // 1 Stat per row
+//   }
+// }
+
+// .recent-row {
+//       display: grid;
+//       grid-template-columns: 1fr 1fr;
+//       gap: 1.5rem;
+//     }
+
+//     /* Stack to single column on smaller screens */
+//     @media (max-width: 768px) {
+//       .recent-row { grid-template-columns: 1fr; }
+//     }
+
+
+
+// ─── Design Tokens ───────────────────────────────────────────────────────────
+$gap-sm:   1rem;
+$gap-md:   1.5rem;
+$gap-lg:   2rem;
+$bg-page:  #f3f4f8;
+
+// ─── Host ────────────────────────────────────────────────────────────────────
+:host {
+  display: block;
+  overflow-x: hidden;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background-color: $bg-page;
+}
+
+// ─── Page wrapper ────────────────────────────────────────────────────────────
+.dashboard-container {
+  padding: $gap-lg;
+  min-height: 100%;
+  box-sizing: border-box;
+}
+
+// ─── Two-column root grid ────────────────────────────────────────────────────
+// Left column is 2.5× the sidebar width — same as before,
+// but sidebar now holds more components so it stays sticky.
+.dashboard-layout {
+  display: grid;
+  grid-template-columns: 2.5fr 1fr;
+  gap: $gap-md;
+  align-items: start;
+
+  @media (max-width: 1280px) {
+    grid-template-columns: 1fr;   // stack sidebar below left column
+  }
+}
+
+// ─── Left column ─────────────────────────────────────────────────────────────
+.left-column {
+  display: flex;
+  flex-direction: column;
+  gap: $gap-md;
+}
+
+// ── Hero stat row (3 primary KPIs — larger visual weight) ────────────────────
+// Slightly taller min-height than secondary row to create hierarchy.
+.stats-hero-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $gap-md;
+
+  > * {
+    min-height: 160px;   // hero cards are taller
+  }
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// ── Secondary stat row (3 supporting KPIs — lighter visual weight) ───────────
+.stats-secondary-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $gap-md;
+
+  > * {
+    min-height: 130px;   // secondary cards are slightly shorter
+  }
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// ── Cash Flow Trend ───────────────────────────────────────────────────────────
+// Full-width strip between stats and transactions — gives time-series
+// context to the numbers above.
+.cashflow-section {
+  width: 100%;
+}
+
+// ── Recent Transactions (income + expense side-by-side) ──────────────────────
+.transactions-section {
+  width: 100%;
+}
+
+.transaction-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $gap-md;
+
+  // Each list should show ~5 rows comfortably without scrolling
+  > * {
+    max-height: 440px;
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// ─── Right sidebar ───────────────────────────────────────────────────────────
+// Sticky so it doesn't scroll away while the left column is long.
+.right-column {
+  display: flex;
+  flex-direction: column;
+  gap: $gap-md;
+  position: sticky;
+  top: $gap-lg;
+
+  // Hide scrollbar visually but allow scroll
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+
+  @media (max-width: 1280px) {
+    position: static;
+    max-height: none;
+    overflow-y: visible;
+  }
+}
+
+// Each sidebar card — full width of sidebar
+.sidebar-section {
+  width: 100%;
+}
+
+// ─── Responsive: tablet & below ──────────────────────────────────────────────
+@media (max-width: 1280px) {
+  .dashboard-container {
+    padding: $gap-md;
+  }
+}
+
+@media (max-width: 600px) {
+  .dashboard-container {
+    padding: $gap-sm;
+  }
+}

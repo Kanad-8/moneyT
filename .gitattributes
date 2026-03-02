@@ -1,0 +1,39 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# =========================
+# Backend (Spring Boot / Java)
+# =========================
+# Absolutely crucial: Maven wrapper scripts must have UNIX line endings (LF)
+mvnw text eol=lf
+*.sh text eol=lf
+
+# Windows batch scripts require Windows line endings (CRLF)
+mvnw.cmd text eol=crlf
+*.bat text eol=crlf
+
+# Java sources
+*.java text diff=java
+*.properties text
+*.xml text
+
+# =========================
+# Frontend (Angular / Web)
+# =========================
+*.ts text
+*.html text diff=html
+*.css text
+*.scss text
+*.js text
+*.json text
+
+# =========================
+# Binary Files
+# =========================
+*.jar binary
+*.class binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.ico binary
+*.svg text

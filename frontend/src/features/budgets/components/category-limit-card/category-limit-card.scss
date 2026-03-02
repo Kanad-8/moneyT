@@ -1,0 +1,94 @@
+// Variables
+$bg-white: #ffffff;
+$border-color: #e5e7eb;
+$text-dark: #1f2937;
+$text-primary: #374151;
+$warning-color: #d97706;
+$critical-color: #dc2626;
+
+.limit-card {
+  // 1. Flex Layout to separate Header from List
+  display: flex;
+  flex-direction: column;
+  
+  // 2. Fill the Parent Container's Height
+  height: 100%; 
+  width: 100%;
+  box-sizing: border-box;
+  
+  // Visuals
+  background-color: $bg-white;
+  border: 1px solid $border-color;
+  border-radius: 0.75rem;
+  padding: 1.5rem; // Padding goes on the outer card
+  padding-bottom: 0.5rem; // Reduced bottom padding so scroll goes deeper
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+
+  // --- Fixed Header ---
+  .card-header {
+    flex-shrink: 0; // Prevents shrinking
+    margin-bottom: 1rem;
+    
+    h3 {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: $text-dark;
+      margin: 0;
+    }
+  }
+
+  // --- Scrollable List ---
+  .limit-list {
+    // The Scroll Magic
+    flex: 1;          // Take all remaining height
+    overflow-y: auto; // Scroll enabled
+    min-height: 0;    // Flexbox scroll fix
+
+    // Internal Layout
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    
+    // Aesthetic: Add breathing room at bottom for last item
+    padding-bottom: 1rem;
+    padding-right: 5px; // Space for scrollbar
+
+    // Custom Scrollbar Styling
+    &::-webkit-scrollbar { width: 4px; }
+    &::-webkit-scrollbar-track { background: transparent; }
+    &::-webkit-scrollbar-thumb { 
+      background-color: #d1d5db; 
+      border-radius: 4px; 
+    }
+    &::-webkit-scrollbar-thumb:hover { background-color: #9ca3af; }
+  }
+}
+
+// Item Styling (Unchanged)
+.limit-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1rem;
+
+  .category-name {
+    color: $text-primary;
+    font-weight: 500;
+  }
+
+  .percentage-value {
+    font-weight: 600;
+    font-size: 1.125rem;
+    
+    &.warning { color: $warning-color; }
+    &.critical { color: $critical-color; }
+  }
+}
+
+.empty-state {
+  color: #6b7280;
+  font-size: 0.875rem;
+  font-style: italic;
+  margin-top: auto;
+  margin-bottom: auto; // Centers text if list is empty
+}

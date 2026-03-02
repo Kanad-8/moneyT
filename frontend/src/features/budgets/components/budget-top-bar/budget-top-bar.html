@@ -1,0 +1,35 @@
+<div class="top-bar">
+  
+  <div class="date-navigator">
+    
+    <button class="nav-btn" (click)="prevMonth.emit()" aria-label="Previous Month">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M15 18l-6-6 6-6"/>
+      </svg>
+    </button>
+
+    <h2 class="current-date">
+      {{ currentMonthYear }}
+    </h2>
+
+    <button class="nav-btn" (click)="nextMonth.emit()" aria-label="Next Month">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 18l6-6-6-6"/>
+      </svg>
+    </button>
+  
+  </div>
+
+  <div class="actions">
+    <button class="btn-add" (click)="createBudget.emit()">
+      <span class="icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+      </span>
+      Add New Budget
+    </button>
+  </div>
+
+</div>

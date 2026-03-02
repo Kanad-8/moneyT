@@ -1,0 +1,126 @@
+<div class="transactions-card">
+
+  <!-- Header -->
+  <div class="card-header">
+    <div class="header-left">
+      <div class="header-icon">
+        <span class="material-symbols-outlined">
+          {{ mode === 'income' ? 'savings' : 'receipt_long' }}
+        </span>
+      </div>
+      <h2>{{ title }}</h2>
+    </div>
+    <button type="button" class="view-all-link" (click)="onViewAll()">View All</button>
+  </div>
+
+  <!-- Body -->
+  <div class="card-body">
+    @if (items && items.length > 0) {
+      <ul class="transactions-list">
+        @for (item of items; track item.transaction_id) {
+          <li class="transaction-item">
+
+            <button class="transaction-content-button" (click)="onEdit(item)">
+              <div class="item-icon" [style.background-color]="getIconBg(item.title)">
+                <span class="material-symbols-outlined" [style.color]="getIconColor(item.title)">
+                  {{ getIcon(item.title) }}
+                </span>
+              </div>
+
+              <div class="item-details">
+                <span class="item-title">{{ item.title | titlecase }}</span>
+                <span class="item-subtitle">{{ item.subtitle | titlecase }}</span>
+              </div>
+
+              <div class="item-amount-group">
+                <span class="item-amount">
+                  {{ mode === 'income' ? '+' : '-' }}{{ item.amount | currency:'INR':'symbol':'1.2-2' }}
+                </span>
+                <span class="item-date">{{ item.date | date:'MMM d, y' }}</span>
+              </div>
+            </button>
+
+            <div class="item-actions">
+              <button class="button-icon" aria-label="Edit" (click)="onEdit(item)">
+                <span class="material-symbols-outlined">edit</span>
+              </button>
+              <button class="button-icon button-danger" aria-label="Delete" (click)="onDelete(item)">
+                <span class="material-symbols-outlined">delete</span>
+              </button>
+            </div>
+
+          </li>
+        }
+      </ul>
+
+      <!-- ── Pagination ──────────────────────────────────────────────────── -->
+      @if (totalPages > 1) {
+        <div class="pagination-bar">
+
+          <!-- Item count label -->
+          <span class="pagination-info">
+            {{ startItem }}–{{ endItem }} of {{ totalItems }}
+          </span>
+
+          <div class="pagination-controls">
+
+            <!-- Previous -->
+            <button
+              class="page-btn nav-btn"
+              [disabled]="!hasPrev"
+              (click)="goToPage(currentPage - 1)"
+              aria-label="Previous page">
+              <span class="material-symbols-outlined">chevron_left</span>
+            </button>
+
+            <!-- First page + ellipsis -->
+            @if (pageNumbers[0] > 1) {
+              <button class="page-btn" (click)="goToPage(1)">1</button>
+              @if (pageNumbers[0] > 2) {
+                <span class="page-ellipsis">…</span>
+              }
+            }
+
+            <!-- Page number buttons -->
+            @for (page of pageNumbers; track page) {
+              <button
+                class="page-btn"
+                [class.active]="page === currentPage"
+                (click)="goToPage(page)">
+                {{ page }}
+              </button>
+            }
+
+            <!-- Last page + ellipsis -->
+            @if (pageNumbers[pageNumbers.length - 1] < totalPages) {
+              @if (pageNumbers[pageNumbers.length - 1] < totalPages - 1) {
+                <span class="page-ellipsis">…</span>
+              }
+              <button class="page-btn" (click)="goToPage(totalPages)">{{ totalPages }}</button>
+            }
+
+            <!-- Next -->
+            <button
+              class="page-btn nav-btn"
+              [disabled]="!hasNext"
+              (click)="goToPage(currentPage + 1)"
+              aria-label="Next page">
+              <span class="material-symbols-outlined">chevron_right</span>
+            </button>
+
+          </div>
+        </div>
+      }
+
+    } @else {
+      <div class="empty-state">
+        <span class="material-symbols-outlined empty-icon">
+          {{ mode === 'income' ? 'account_balance_wallet' : 'receipt_long' }}
+        </span>
+        <p>No recent {{ mode === 'income' ? 'income' : 'transactions' }} found.</p>
+        <span>{{ mode === 'income' ? 'Add an income entry to get started.' : 'Click "Add Expense" to get started.' }}</span>
+      </div>
+    }
+  </div>
+
+</div>

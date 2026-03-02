@@ -1,0 +1,68 @@
+<div class="forecast-card">
+
+  <!-- Header -->
+  <div class="header">
+    <span class="title">Projected Monthly Total</span>
+   
+    <div class="icon-wrapper purple">
+       <mat-icon>trending_up</mat-icon>
+    </div>
+  </div>
+
+  <!-- Main Value -->
+  <div class="value-row">
+    <span class="amount">{{predictedAmount}}</span>
+    <span class="suffix">predicted</span>
+  </div>
+
+  <!-- Alert Badge -->
+  <div class="alert-badge">
+    <!-- <mat-icon>warning</mat-icon> -->
+    ₹{{netDiff}}  Budget
+  </div>
+
+  <!-- Progress Bar -->
+  <!-- <div class="progress-wrapper">
+    <div class="progress-bar">
+      <div class="progress-spent" [style.width.%]="spentPercent"></div>
+       <div class="progress-over" [style.width.%]="overPercent" [style.left.%]="spentPercent"></div>
+    </div> -->
+
+    <div class="projection-bar-container">
+    <div class="projection-track">
+      
+      <!-- 1. ACTUAL SPENT (Safe / Within Budget) -->
+      <!-- Color: Dark Gray / Black -->
+      <div class="bar-segment safe" 
+           [style.width]="safeWidth" 
+           [style.left]="'0%'">
+      </div>
+
+      <!-- 2. ACTUAL OVERSPEND (The Debt) -->
+      <!-- Color: Solid Red -->
+      <div class="bar-segment danger" 
+           [style.width]="overspendWidth" 
+           [style.left]="safeWidth">
+      </div>
+
+      <!-- 3. PROJECTED OVERSPEND (The Prediction) -->
+      <!-- Color: Striped Red (Warning) -->
+      <div class="bar-segment warning" 
+           [style.width]="projectedOverWidth" 
+           [style.left]="projectedStartLeft">
+      </div>
+
+      <!-- Budget Line Marker -->
+      <div class="budget-marker" [style.left]="budgetLinePosition"></div>
+
+    </div>
+
+    <div class="progress-labels">
+      <span>Spent: ₹{{totalSpent}}</span>
+      <span class="budget">Budget: ₹{{totalBudget}}</span>
+      <span class="final">Final: ₹{{predictedAmount}}</span>
+    </div>
+  </div>
+
+</div>
+

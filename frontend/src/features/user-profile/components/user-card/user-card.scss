@@ -1,0 +1,155 @@
+// 1. Variables (Matching App Theme)
+$primary-color: #4f46e5; // Indigo-600
+$text-dark: #1f2937;     // Gray-900
+$text-light: #6b7280;    // Gray-500
+$bg-gray: #f9fafb;       // Gray-50
+$border-color: #e5e7eb;  // Gray-200
+$danger-color: #ef4444;  // Red-500
+$danger-bg: #fee2e2;     // Red-100
+
+// 2. Main Container (Centers the card on the page)
+.profile-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; // Align to top
+  padding: 2rem;
+  font-family: 'Inter', sans-serif;
+  width: 100%;
+}
+
+// 3. The Card
+.profile-card {
+  background-color: white;
+  width: 100%;
+  max-width: 26rem; // Slightly wider for better spacing
+  border-radius: 1rem; // Rounded-xl
+  border: 1px solid $border-color;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  // Subtle lift effect on hover (optional)
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+}
+
+// 4. Header Section (Avatar + Info)
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem; // Space between avatar and text
+  padding: 1.5rem;
+}
+
+// Avatar Circle
+.avatar {
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, $primary-color, darken($primary-color, 10%)); // Gradient bg
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 6px rgba($primary-color, 0.2);
+  border: 2px solid white; // White ring around avatar
+  
+  // The icon inside (material-icons)
+  span {
+    font-size: 2.5rem;
+    color: white;
+  }
+}
+
+// User Text Info
+.user-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .username {
+    font-size: 1.25rem; // text-xl
+    font-weight: 700;
+    color: $text-dark;
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  .email {
+    font-size: 0.875rem; // text-sm
+    color: $text-light;
+    margin: 0.25rem 0 0.5rem 0;
+  }
+
+  // The "Free Plan" Badge
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+    font-size: 0.75rem; // text-xs
+    font-weight: 600;
+    color: $primary-color;
+    background-color: rgba($primary-color, 0.1);
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    letter-spacing: 0.025em;
+  }
+}
+
+// 5. Divider Line
+.divider {
+  height: 1px;
+  background-color: $border-color;
+  width: 100%;
+}
+
+// 6. Actions Footer
+.profile-actions {
+  padding: 1rem 1.5rem;
+  background-color: $bg-gray; // Slightly different background for footer
+}
+
+// Sign Out Button
+.btn-signout {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border-radius: 0.5rem; // rounded-lg
+  background-color: white;
+  color: $text-dark;
+  font-weight: 500;
+  font-size: 0.95rem;
+  cursor: pointer;
+  
+  // Border logic
+  border: 1px solid $border-color;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+  .icon {
+    font-size: 1.25rem;
+    color: $text-light;
+    transition: color 0.2s;
+  }
+
+  // Hover State (Red/Danger Theme)
+  &:hover {
+    background-color: $danger-bg;
+    color: $danger-color;
+    border-color: $danger-bg;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+
+    .icon {
+      color: $danger-color;
+    }
+  }
+
+  // Active/Click State
+  &:active {
+    transform: scale(0.98);
+  }
+}

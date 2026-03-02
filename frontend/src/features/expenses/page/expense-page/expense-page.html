@@ -1,0 +1,84 @@
+<!-- ── Modals ─────────────────────────────────────────────────────────────── -->
+@if (isExpenseModalOpen$ | async) {
+  <app-transaction-form
+    mode="expense"
+    [expenseToEdit]="expenseToEdit"
+    (close)="onExpenseModalClose()"
+    (expenseSubmit)="handleSaveExpense($event)" />
+}
+
+@if (isIncomeModalOpen$ | async) {
+  <app-transaction-form
+    mode="income"
+    [incomeToEdit]="incomeToEdit"
+    (close)="onIncomeModalClose()"
+    (incomeSubmit)="handleSaveIncome($event)" />
+}
+
+@if (isViewAllModalOpen$ | async) {
+  <app-view-all-expenses-modal (close)="onViewAllClose()" />
+}
+
+<!-- ── Page ──────────────────────────────────────────────────────────────── -->
+<div class="dashboard-container">
+  
+  <!-- Filter + Action buttons -->
+  <section class="filter-section">
+    <div class="filter-row">
+      <app-filter-bar
+        [filterMode]="activeTab"
+        (filterApply)="handleFilter($event)" />
+    </div>
+
+    <!-- Tab switcher -->
+    <div class="tab-bar">
+      <button
+        class="tab"
+        [class.active-expense]="activeTab === 'expense'"
+        (click)="switchTab('expense')">
+        <span class="material-symbols-outlined">receipt_long</span>
+        Expenses
+      </button>
+      <button
+        class="tab"
+        [class.active-income]="activeTab === 'income'"
+        (click)="switchTab('income')">
+        <span class="material-symbols-outlined">savings</span>
+        Income
+      </button>
+    </div>
+  </section>
+
+  <!-- Main transaction list (tabs) -->
+  <section class="main-content">
+    <div class="card">
+      @if (activeTab === 'expense') {
+        <app-transaction-list-component
+          mode="expense"
+          title="Recent Expenses"
+          [items]="expenses"
+          (edit)="onEditExpenseModal($event)"
+          (delete)="onDeleteExpense($event)"
+          (viewAll)="onViewAllModal()" />
+      } @else {
+        <app-transaction-list-component
+          mode="income"
+          title="Recent Income"
+          [items]="incomes"
+          (edit)="onEditIncomeModal($event)"
+          (delete)="onDeleteIncome($event)"
+          (viewAll)="onViewAllModal()" />
+      }
+    </div>
+  </section>
+
+  <!-- Sidebar -->
+  <aside class="right-sidebar">
+    <div class="stats-row">
+      <app-stat-card [title]="'Total Spent'"  [value]="totalAmount" />
+      <app-stat-card [title]="'Total Income'" [value]="totalIncome"  />
+    </div>
+    <app-category-chart [chartLabels]="chartLabels" [chartData]="chartData" />
+  </aside>
+
+</div>

@@ -1,0 +1,53 @@
+<div class="filter-bar">
+  
+  <!-- 1. Title -->
+  <div class="filter-bar__title">
+    <h2>Filters</h2>
+  </div>
+
+  <!-- 2. Divider -->
+  <div class="filter-bar__divider"></div>
+
+  <!-- 3. Controls -->
+  <div class="filter-bar__controls">
+    
+    <!-- Date Range -->
+    <div class="filter-group">
+      <label for="dateRange">Date Range</label>
+      <div class="select-wrapper">
+        <select id="dateRange" [(ngModel)]="selectedDate">
+          <option value="current_month">Current Month</option>
+          <option value="last_30_days">Last 30 Days</option>
+          <option value="last_3_months">Last 3 Months</option>
+          <option value="this_year">This Year</option>
+        </select>
+        <div class="arrow-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Category -->
+    <div class="filter-group">
+      @if (filterMode == "expenses") {
+      <label for="category">Category</label>
+      <div class="select-wrapper">
+        <input type="text" id="category" placeholder="Category" [(ngModel)]="selectedCategory">
+      </div>
+      }
+      @else{
+      <label for="category">Source</label>
+      <div class="select-wrapper">
+        <input type="text" id="category" placeholder="Source" [(ngModel)]="selectedCategory">
+      </div>
+      }
+    </div>
+    
+    <div class="filter-bar__actions">
+    <button class="btn-apply" (click)="apply()">
+      Apply Filters
+    </button>
+  </div>
+
+  </div>
+</div>

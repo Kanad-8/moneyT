@@ -1,0 +1,51 @@
+<div class="stat-card" [ngClass]="[colorClass + '-theme', variant]">
+
+  <!-- ── Header ─────────────────────────────────────────────────────── -->
+  <div class="card-header">
+    <span class="title">{{ title }}</span>
+    <div class="icon-box" [ngClass]="colorClass">
+      <span class="material-symbols-outlined">{{ icon }}</span>
+    </div>
+  </div>
+
+  <!-- ── Primary Value ──────────────────────────────────────────────── -->
+  <div class="primary-value">
+    <span class="currency" *ngIf="currency">₹</span>
+    <span class="amount">{{ value}}</span>
+    <span class="unit" *ngIf="unit">{{ unit }}</span>
+  </div>
+
+  <!-- ── Trend Row ──────────────────────────────────────────────────── -->
+  <div class="trend-row" *ngIf="trend && (trend.label || trend.text)">
+
+    <span class="trend-badge" *ngIf="trend.label" [ngClass]="trendClass">
+      <span class="material-symbols-outlined">
+        {{ trend.type === 'up' ? 'arrow_upward' : trend.type === 'down' ? 'arrow_downward' : 'remove' }}
+      </span>
+      {{ trend.label }}
+    </span>
+
+    <span class="trend-text" *ngIf="trend.text">{{ trend.text }}</span>
+
+  </div>
+
+  <!-- ── Secondary Text ─────────────────────────────────────────────── -->
+  <p class="secondary-text" *ngIf="secondaryText">{{ secondaryText }}</p>
+
+  <!-- ── Progress Bar ───────────────────────────────────────────────── -->
+  <div class="progress-wrapper" *ngIf="progress">
+    <div class="progress-track">
+      <div
+        class="progress-fill"
+        [style.width.%]="progress.value"
+        [ngClass]="progress.variant ?? 'normal'">
+      </div>
+    </div>
+    <div class="progress-labels">
+      <span class="label-left">{{ progress.left }}</span>
+      <span class="label-center">{{ progress.center }}</span>
+      <span class="label-right danger">{{ progress.right }}</span>
+    </div>
+  </div>
+
+</div>

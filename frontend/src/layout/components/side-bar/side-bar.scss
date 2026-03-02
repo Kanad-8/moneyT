@@ -1,0 +1,129 @@
+/* --- SCSS Variables --- */
+$sidebar-bg: #ffffff; // bg-white (CHANGED)
+$sidebar-text: #6b7280; // text-gray-500 (CHANGED)
+$sidebar-text-hover: #111827; // text-gray-900 (CHANGED)
+$sidebar-width: 16rem; // w-64
+$top-bar-height: 4rem; // h-16
+$primary-color: #4f46e5; // bg-indigo-600
+$primary-color-hover: #4338ca; // hover:bg-indigo-700
+$page-bg: #f9fafb; // bg-gray-100
+$content-bg: #ffffff; // bg-white
+$border-color: #e5e7eb; // border-gray-200
+$text-primary: #111827; // text-gray-900
+$text-secondary: #6b7280; // text-gray-500
+
+ :host {
+     /* CSS variables are inherited from the parent App component */
+     /* The sidebar itself needs to transition its width */
+     transition: width var(--transition-speed) ease;
+     width: var(--sidebar-width);
+     flex-shrink: 0;
+ }
+
+ .sidebar {
+     width: $sidebar-width;
+     background-color: $sidebar-bg;
+     color: $sidebar-text;
+     flex-shrink: 0; // Prevents sidebar from shrinking
+     border-right: 1px solid $border-color; // ADDED for separation
+     height: 100%;
+
+     .sidebar-logo {
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         height: $top-bar-height;
+         padding: 0 1rem;
+     }
+
+     .logo-icon {
+         width: 2rem; // w-8
+         height: 2rem; // h-8
+         color: $primary-color; // text-indigo-400
+     }
+
+     .logo-text {
+         margin-left: 0.75rem;
+         font-size: 1.25rem; // text-xl
+         font-weight: 700; // font-bold
+         color: $text-primary; // CHANGED from #ffffff
+     }
+
+     .nav-list {
+         list-style: none;
+         padding: 0;
+         margin: 0;
+         margin-top: 1.5rem;
+         padding: 0 1rem;
+     }
+     .nav-list .nav-link {
+  display: flex;
+  align-items: center;
+  padding: 10px 16px;
+  color: #333;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.nav-list .nav-link:hover {
+  background-color: #f0f0f0;
+}
+
+.nav-list .nav-link.active {
+  background-color: #007bff; /* Highlight color */
+  color: #fff;
+  font-weight: bold;
+}
+
+.nav-list .nav-link.active .material-symbols-outlined {
+  color: #fff;
+}
+
+.nav-list .nav-link.active .nav-text {
+  color: #fff;
+}
+
+     .nav-item {
+         margin-bottom: 0.5rem;
+     }
+
+     .nav-link {
+         display: flex;
+         align-items: center;
+         height: 3rem;
+         padding: 0 0.75rem;
+         border-radius: 0.5rem;
+         text-decoration: none;
+         color: inherit;
+         transition: background-color 0.2s, color 0.2s;
+         white-space: nowrap;
+         /* Prevent text from wrapping */
+     }
+
+     .nav-link .material-symbols-outlined {
+         font-size: 1.5rem;
+         width: 1.5rem;
+         height: 1.5rem;
+         flex-shrink: 0;
+         /* Don't shrink icon */
+     }
+
+     .nav-link .nav-text {
+         margin-left: 1rem;
+         font-size: 0.875rem;
+         font-weight: 500;
+     }
+
+     .nav-link:hover {
+         background-color: var(--page-bg);
+         color: var(--sidebar-text-hover);
+     }
+
+     .nav-link.active {
+         background-color: transparent;
+         color: var(--primary-color);
+         font-weight: 600;
+     }
+    }
+    

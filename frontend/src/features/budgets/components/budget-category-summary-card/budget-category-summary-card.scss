@@ -1,0 +1,162 @@
+// --- 1. CONFIGURATION (Icons & Colors) ---
+$category-config: (
+  'food':       (color: #ef4444, icon: "🍔"),
+  'shopping':   (color: #eab308, icon: "🛍️"),
+  'transport':  (color: #3b82f6, icon: "🚌"),
+  'utilities':  (color: #6366f1, icon: "💡"),
+  'entertainment': (color: #ec4899, icon: "🎬"),
+  'other':      (color: #6b7280, icon: "📁")
+);
+
+// Variables
+$bg-white: #ffffff;
+$border-color: #e5e7eb;
+$text-dark: #1f2937;
+$text-light: #6b7280;
+$danger-color: #dc2626;
+$track-color: #f3f4f6;
+
+.category-card {
+  // 1. Flex Layout to separate Header from List
+  display: flex;
+  flex-direction: column;
+
+  // 2. Fill the Parent Container's Height
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+
+  // Visuals
+  background-color: $bg-white;
+  border: 1px solid $border-color;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  padding-bottom: 0.5rem; // Reduced bottom padding for scroll area
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+
+  // --- Fixed Header ---
+  .card-header {
+    flex-shrink: 0; // Prevents shrinking
+    margin-bottom: 1.5rem;
+
+    h3 {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: $text-dark;
+      margin: 0;
+    }
+  }
+
+  // --- Scrollable List ---
+  .list-container {
+    // The Scroll Magic
+    flex: 1;          // Take all remaining height
+    overflow-y: auto; // Scroll enabled
+    min-height: 0;    // Flexbox scroll fix
+    max-height: 450px;
+
+    // Internal Layout
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;      // Space between rows
+    
+    // Aesthetic spacing
+    padding-bottom: 1rem;
+    padding-right: 5px; // Space for scrollbar
+
+    // Custom Scrollbar
+    &::-webkit-scrollbar { width: 6px; }
+    &::-webkit-scrollbar-track { background: transparent; }
+    &::-webkit-scrollbar-thumb { 
+      background-color: #d1d5db; 
+      border-radius: 4px; 
+    }
+    &::-webkit-scrollbar-thumb:hover { background-color: #9ca3af; }
+  }
+}
+
+// --- Item Styling ---
+.category-item {
+  display: grid;
+  // Grid: Icon (15%) | Progress (55%) | Status (30%)
+  grid-template-columns: 1.5fr 3fr 1.5fr; 
+  align-items: center;
+  gap: 1rem;
+  
+  // Mobile Fallback
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #f3f4f6;
+  }
+
+  // Default Color Variable
+  --cat-color: #6b7280; 
+
+  // Dynamic Color/Icon Loop
+  @each $name, $config in $category-config {
+    &[data-type="#{$name}"] {
+      --cat-color: #{map-get($config, color)};
+      .item-identity .icon::before {
+        content: map-get($config, icon);
+      }
+    }
+  }
+
+  // 1. Identity Section
+  .item-identity {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    .icon { font-size: 1.25rem; }
+    .name { font-weight: 600; color: $text-dark; font-size: 0.95rem; }
+    .dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background-color: var(--cat-color);
+    }
+  }
+
+  // 2. Progress Section
+  .item-progress {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+
+    .progress-track {
+      width: 100%; height: 8px;
+      background-color: $track-color;
+      border-radius: 999px; overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%; border-radius: 999px;
+      background-color: var(--cat-color);
+      transition: width 0.3s ease;
+    }
+
+    .progress-text {
+      font-size: 0.85rem;
+      .spent { font-weight: 700; color: var(--cat-color); }
+      .total { color: $text-light; }
+    }
+  }
+
+  // 3. Status Section
+  .item-status {
+    text-align: right;
+    @media (max-width: 600px) { text-align: left; }
+
+    .status-text {
+      font-size: 0.85rem; font-weight: 500;
+      &.remaining { color: $text-light; }
+      &.over-budget { color: $danger-color; }
+    }
+  }
+}
+
+.empty-state {
+  margin: auto;
+  color: $text-light;
+  font-style: italic;
+}

@@ -1,0 +1,51 @@
+<div class="category-card">
+  
+  <div class="card-header">
+    <h3>Category Budgets</h3>
+  </div>
+
+  <div class="list-container">
+    
+    @for (item of categories; track item.name) {
+      <div class="category-item" [attr.data-type]="item.name | lowercase">
+
+        <div class="item-identity">
+          <span class="icon"></span> <span class="name">{{ item.name }}</span>
+          <span class="dot"></span>
+        </div>
+
+        <div class="item-progress">
+          <div class="progress-track">
+            <div class="progress-fill"
+                 [style.width.%]="getProgressWidth(item.Spent, item.Budget)">
+            </div>
+          </div>
+
+          <div class="progress-text">
+            <span class="spent">
+              {{ item.Spent | currency:'INR' :'symbol':'1.0-0' }}
+            </span>
+            <span class="total">spent of {{ item.Budget | currency : 'INR' :'symbol':'1.0-0'}}</span>
+          </div>
+        </div>
+
+        <div class="item-status">
+          @if(isOverBudget(item)){
+            <span class="status-text over-budget">
+              {{ item.Spent - item.Budget | currency: 'INR' : 'symbol' :'1.0-0' }} Over Budget
+            </span>
+          } @else {
+            <span class="status-text remaining">
+              {{ item.Budget - item.Spent | currency: 'INR' : 'symbol':'1.0-0' }} Remaining
+            </span>
+          }
+        </div>
+        
+      </div>
+    }
+    @empty {
+      <div class="empty-state">No Categories found.</div>
+    }
+    
+  </div>
+</div>

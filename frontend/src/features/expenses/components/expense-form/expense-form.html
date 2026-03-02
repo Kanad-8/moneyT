@@ -1,0 +1,119 @@
+<div class="form-modal">
+      <!-- Form Header -->
+      <div class="form-header">
+        <h2>Add New Expense</h2>
+        <!-- (click) event for closing the modal would go here -->
+        <button class="icon-button" aria-label="Close" type="button" (click)="onClose()">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+
+      <!-- 
+        1. Bind the <form> to your component's 'expenseForm' FormGroup.
+        2. (ngSubmit) calls your component's 'onSubmit()' method.
+      -->
+      <form [formGroup]="expenseForm" (ngSubmit)="onSubmit()">
+        <!-- Form Body -->
+        <div class="form-body">
+          <!-- Category Field -->
+          <div class="form-field">
+            <label for="category">Category</label>
+            <input
+            type="text" 
+            id="category"
+             class="form-textarea" 
+             formControlName="category"
+             rows="1"
+            >
+            <!-- Validation Message for Category -->
+            @if (expenseForm.get('category')?.invalid && expenseForm.get('category')?.touched) {
+              <div class="form-error">
+                <span>Category is required.</span>
+              </div>
+            }
+          </div>
+
+          <!-- Description Field -->
+          <div class="form-field">
+            <label for="description">Description</label>
+            <!-- 3. Bind this <textarea> to its 'description' FormControl -->
+            <textarea
+              id="description"
+              class="form-textarea"
+              placeholder="e.g., Groceries from supermarket"
+              formControlName="description"
+            ></textarea>
+            <!-- No validation needed as it's optional -->
+          </div>
+
+          <!-- Amount and Date Row -->
+          <div class="form-row">
+            <!-- Amount Field -->
+            <div class="form-field">
+              <label for="amount">Amount</label>
+              <div class="input-with-icon">
+                <span class="material-symbols-outlined">currency_rupee</span>
+                <!-- 4. Bind this <input> to 'amount' FormControl -->
+                <input
+                  type="number"
+                  id="amount"
+                  class="form-input"
+                  placeholder="0.00"
+                  step="0.01"
+                  formControlName="amount"
+                />
+              </div>
+
+              <!-- Validation Messages for Amount -->
+              @if (expenseForm.get('amount')?.invalid && expenseForm.get('amount')?.touched) {
+                <div class="form-error">
+                  @if (expenseForm.get('amount')?.hasError('required')) {
+                    <span>Amount is required.</span>
+                  }
+                  @if (expenseForm.get('amount')?.hasError('min')) {
+                    <span>Amount must be greater than 0.</span>
+                  }
+                </div>
+              }
+            </div>
+
+            <!-- Date Field -->
+            <div class="form-field">
+              <label for="date">Date</label>
+                <input
+                  type="date"
+                  id="date"
+                  class="form-input has-icon-right"
+                  placeholder="dd-mm-yyyy"
+                  formControlName="date"
+                />
+
+              <!-- Validation Message for Date -->
+              @if (expenseForm.get('date')?.invalid && expenseForm.get('date')?.touched) {
+                <div class="form-error">
+                  <span>Date is required.</span>
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+
+        <!-- Form Footer / Actions -->
+        <div class="form-actions">
+          <!-- 'type="button"' is important to prevent form submission -->
+          <button type="button" class="button button-secondary" (click)="onClose()">Cancel</button>
+
+          <!-- 
+            6. This button is 'type="submit"' and is tied to (ngSubmit).
+            7. [disabled] is bound to the form's *overall* validity.
+          -->
+          <button
+            type="submit"
+            class="button button-primary"
+            [disabled]="!expenseForm.valid"
+          >
+            Save Expense
+          </button>
+        </div>
+      </form>
+    </div>

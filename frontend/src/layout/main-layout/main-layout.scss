@@ -1,0 +1,60 @@
+/* --- SCSS Variables --- */
+$sidebar-bg: #ffffff; // bg-white (CHANGED)
+$sidebar-text: #6b7280; // text-gray-500 (CHANGED)
+$sidebar-text-hover: #111827; // text-gray-900 (CHANGED)
+$sidebar-width: 16rem; // w-64
+$top-bar-height: 4rem; // h-16
+$primary-color: #4f46e5; // bg-indigo-600
+$primary-color-hover: #4338ca; // hover:bg-indigo-700
+$page-bg: #f9fafb; // bg-gray-100
+$content-bg: #ffffff; // bg-white
+$border-color: #e5e7eb; // border-gray-200
+$text-primary: #111827; // text-gray-900
+$text-secondary: #6b7280; // text-gray-500
+
+/* --- Global Styles --- */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  background-color: $page-bg;
+  color: $text-primary;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* --- Layout --- */
+/* --- Define your layout variables --- */
+:host {
+  --sidebar-width: 16rem; /* 256px */
+  --transition-speed: 0.3s;
+}
+
+/* --- Default Layout State (Sidebar Open) --- */
+.dashboard-layout {
+  display: flex;
+  height: 100vh;
+}
+
+.main-area {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+/* Target the <app-side-bar> component tag */
+app-side-bar {
+  width: var(--sidebar-width);
+  flex-shrink: 0;
+  transition: width var(--transition-speed) ease;
+  overflow-x: hidden;
+}
+
+.dashboard-layout.sidebar-collapsed app-side-bar {
+  width: 0;
+}

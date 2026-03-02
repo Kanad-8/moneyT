@@ -1,0 +1,117 @@
+<div class="form-modal">
+
+  <!-- ── Header ─────────────────────────────────────────────────────── -->
+  <div class="form-header">
+    <div class="header-left">
+      <div class="header-icon" [ngClass]="mode">
+        <span class="material-symbols-outlined">
+          {{ mode === 'income' ? 'savings' : 'receipt_long' }}
+        </span>
+      </div>
+      <h2>{{ modalTitle }}</h2>
+    </div>
+    <button class="icon-button" type="button" aria-label="Close" (click)="onClose()">
+      <span class="material-symbols-outlined">close</span>
+    </button>
+  </div>
+
+  <!-- ── Form ───────────────────────────────────────────────────────── -->
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-body">
+
+      <!-- Tag field: Category (expense) | Source (income) -->
+      <div class="form-field">
+        <label for="tag">{{ tagLabel }}</label>
+        <input
+          type="text"
+          id="tag"
+          class="form-input"
+          [placeholder]="tagPlaceholder"
+          formControlName="tag" />
+        @if (form.get('tag')?.invalid && form.get('tag')?.touched) {
+          <div class="form-error">
+            <span class="material-symbols-outlined">error</span>
+            {{ tagLabel }} is required.
+          </div>
+        }
+      </div>
+
+      <!-- Description -->
+      <div class="form-field">
+        <label for="description">
+          Description
+          <span class="optional-badge">optional</span>
+        </label>
+        <textarea
+          id="description"
+          class="form-textarea"
+          [placeholder]="descriptionPlaceholder"
+          formControlName="description"
+          rows="2">
+        </textarea>
+      </div>
+
+      <!-- Amount + Date row -->
+      <div class="form-row">
+
+        <!-- Amount -->
+        <div class="form-field">
+          <label for="amount">Amount</label>
+          <div class="input-with-icon">
+            <span class="input-icon material-symbols-outlined">currency_rupee</span>
+            <input
+              type="number"
+              id="amount"
+              class="form-input"
+              placeholder="0.00"
+              step="0.01"
+              min="0.01"
+              formControlName="amount" />
+          </div>
+          @if (form.get('amount')?.invalid && form.get('amount')?.touched) {
+            <div class="form-error">
+              <span class="material-symbols-outlined">error</span>
+              @if (form.get('amount')?.hasError('required')) { Amount is required. }
+              @if (form.get('amount')?.hasError('min'))      { Must be greater than ₹0. }
+            </div>
+          }
+        </div>
+
+        <!-- Date -->
+        <div class="form-field">
+          <label for="date">Date</label>
+          <input
+            type="date"
+            id="date"
+            class="form-input"
+            formControlName="date" />
+          @if (form.get('date')?.invalid && form.get('date')?.touched) {
+            <div class="form-error">
+              <span class="material-symbols-outlined">error</span>
+              Date is required.
+            </div>
+          }
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── Footer ───────────────────────────────────────────────────── -->
+    <div class="form-actions">
+      <button type="button" class="button button-secondary" (click)="onClose()">
+        Cancel
+      </button>
+      <button
+        type="submit"
+        class="button button-primary"
+        [ngClass]="mode"
+        [disabled]="form.invalid">
+        <span class="material-symbols-outlined">
+          {{ isEditMode ? 'save' : 'add' }}
+        </span>
+        {{ submitButtonText }}
+      </button>
+    </div>
+  </form>
+
+</div>

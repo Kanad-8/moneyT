@@ -1,0 +1,24 @@
+<div class="unbudgeted-card">
+  
+  <div class="card-header">
+    <h3>Unbudgeted Spending</h3>
+    <p class="summary-text">
+      You've spent 
+      <span class="highlight">{{ totalUnbudgeted | currency: 'INR' : 'symbol' : '1.0-0' }}</span> 
+      in categories without a budget this month.
+    </p>
+  </div>
+
+  <div class="spending-list">
+    @for (item of List; track item.categoryName) {
+      <div class="spending-item">
+        <span class="category">{{ item.categoryName }}</span>
+        <span class="amount">{{ item.amount | currency: 'INR' : 'symbol' : '1.0-0' }}</span>
+      </div>
+    } 
+    @empty {
+      <div class="empty-state">No unbudgeted spending! Great job.</div>
+    }
+  </div>
+
+</div>

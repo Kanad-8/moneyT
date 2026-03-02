@@ -1,0 +1,170 @@
+// 1. Variables
+$primary-color: #4f46e5; // Indigo-600
+$primary-hover: #4338ca; // Indigo-700
+$text-dark: #1f2937;     // Gray-900
+$text-medium: #374151;   // Gray-700
+$text-light: #6b7280;    // Gray-500
+$bg-color: #f9fafb;      // Gray-50
+$border-color: #e5e7eb;  // Gray-200
+$danger-color: #dc2626;  // Red-600
+$success-color: #16a34a; // Green-600
+
+// 2. Container
+.auth-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: $bg-color;
+  padding: 1rem;
+  font-family: 'Inter', sans-serif; // Ensure font is applied
+}
+
+// 3. Logo
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+
+  .logo-icon {
+    font-size: 2.25rem;
+    color: $primary-color;
+  }
+
+  .logo-text {
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: $text-dark;
+  }
+}
+
+// 4. Card
+.auth-card {
+  width: 100%;
+  max-width: 28rem; // ~450px
+  background: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border: 1px solid $border-color;
+  overflow: hidden;
+}
+
+// 5. Tabs
+.auth-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid $border-color;
+
+  .tab-btn {
+    padding: 1rem;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: $text-light;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+      color: $primary-color;
+      background-color: rgba($primary-color, 0.02);
+    }
+
+    &.active {
+      color: $primary-color;
+      border-bottom-color: $primary-color;
+      background-color: rgba($primary-color, 0.05);
+    }
+  }
+}
+
+// 6. Form Area
+.form-container {
+  padding: 2rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+
+  label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: $text-medium;
+  }
+
+  .label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.form-control {
+  padding: 0.625rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  font-size: 1rem;
+  width: 100%; // Ensure input fills container
+  box-sizing: border-box; // Prevent padding from breaking width
+  transition: all 0.2s;
+
+  &:focus {
+    outline: none;
+    border-color: $primary-color;
+    box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+  }
+}
+
+// 7. Buttons
+.btn-primary {
+  width: 100%;
+  padding: 0.625rem 1rem;
+  background-color: $primary-color;
+  color: white;
+  font-weight: 500;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: 0.5rem;
+
+  &:hover:not(:disabled) {
+    background-color: $primary-hover;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+// 8. Alerts
+.alert {
+  padding: 0.75rem;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+
+  &-error {
+    background-color: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+  }
+
+  &-success {
+    background-color: #dcfce7;
+    color: #166534;
+    border: 1px solid #bbf7d0;
+  }
+}

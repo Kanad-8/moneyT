@@ -1,0 +1,31 @@
+<div class="profile-container">
+  <div class="profile-card">
+    
+    <!-- Header Section: Avatar & Info -->
+    <div class="profile-header">
+      <!-- Avatar Circle -->
+      <div class="avatar">
+         <span class="material-icons" style="font-size: 2.5rem; color: white;">person</span>
+      </div>
+      
+      <!-- Text Info -->
+      <div class="user-info">
+        <h2 class="username">{{ user.username|| "User" }}</h2>
+        <p class="email">{{ user.email || 'user@example.com' }}</p>
+      </div>
+    </div>
+
+    <!-- Divider Line -->
+    <div class="divider"></div>
+
+    <!-- Actions Section -->
+    <div class="profile-actions">
+      <!-- Sign Out Button -->
+      <button class="btn-signout" (click)="onSignOut()">
+        <span class="material-icons icon">logout</span>
+        <span>Sign Out</span>
+      </button>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,28 @@
+<div class="budget-chart-card">
+  
+  <div class="card-header">
+    <h3>Overall Monthly Budget</h3>
+  </div>
+
+  <div class="chart-wrapper">
+    <div class="canvas-container">
+      <canvas #chartCanvas></canvas>
+    </div>
+
+    <div class="chart-text">
+      <span class="percent-value">{{ percentage }}%</span>
+      <span class="percent-label">Used</span>
+    </div>
+  </div>
+
+  <div class="card-footer">
+    <p>
+      You've spent 
+      <span class="highlight">{{ data.totalSpent| currency: ('INR') : 'symbol' : '1.0-0' }}</span> 
+      of your 
+      <span class="highlight">{{ data.totalBudgeted| currency: ('INR') : 'symbol' : '1.0-0' }}</span> 
+      budget.
+    </p>
+  </div>
+
+</div>

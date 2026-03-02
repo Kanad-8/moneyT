@@ -1,0 +1,43 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MoneyT Dashboard</title>
+    <!-- 
+      You would link your compiled SCSS file here, e.g.:
+      <link rel="stylesheet" href="style.css" />
+    -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- ADDED: Google Material Symbols -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+      rel="stylesheet"
+    />
+    <!-- <link rel="stylesheet" href="style.scss" /> -->
+  </head>
+  <body>
+    <!-- Main layout container -->
+    <div class="dashboard-layout" [class.sidebar-collapsed]="!(isOpen$ | async)">
+        
+    <app-side-bar></app-side-bar>
+
+      <!-- Main Content Area -->
+      <div class="main-area">
+        <!-- Top Bar -->
+        <app-top-bar></app-top-bar>
+        <!-- Main Content -->
+        <main class="content-body">
+          <!-- Placeholder for page content -->
+          <div class="content-placeholder">
+            <router-outlet></router-outlet>
+          </div>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>
+
+

@@ -1,0 +1,262 @@
+/* --- Color & Style Variables --- */
+      :host {
+        --primary-color: #4f46e5;
+        --primary-color-hover: #4338ca;
+        --text-primary: #111827;
+        --text-secondary: #374151;
+        --text-muted: #6b7280;
+        --border-color: #d1d5db;
+        --border-color-light: #e5e7eb;
+        --background-page: #f9fafb;
+        --background-white: #ffffff;
+        --background-hover: #f3f4f6;
+        --error-color: #ef4444;
+      }
+
+      /* --- Basic Setup --- */
+      :host {
+        display: block;
+        font-family: 'Inter', sans-serif;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* --- The Modal Card --- */
+      .form-modal {
+        background-color: var(--background-white);
+        border-radius: 0.75rem; /* 12px */
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+          0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        max-width: 500px;
+        width: 100%;
+        border: 1px solid var(--border-color-light);
+        overflow: hidden;
+        margin: 2rem; /* Added for spacing if not centered */
+      }
+
+      /* --- Modal Header --- */
+      .form-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.5rem; /* 24px */
+        border-bottom: 1px solid var(--border-color-light);
+      }
+      .form-header h2 {
+        font-size: 1.25rem; /* 20px */
+        font-weight: 600;
+        margin: 0;
+        color: var(--text-primary);
+      }
+
+      .icon-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.5rem; /* 8px */
+        border-radius: 999px;
+        background-color: transparent;
+        border: none;
+        color: var(--text-muted);
+        cursor: pointer;
+        transition: background-color 0.2s, color 0.2s;
+      }
+      .icon-button:hover {
+        background-color: var(--background-hover);
+        color: var(--text-primary);
+      }
+      .icon-button .material-symbols-outlined {
+        font-size: 1.5rem; /* 24px */
+      }
+
+      /* --- Form Body --- */
+      .form-body {
+        padding: 1.5rem; /* 24px */
+      }
+
+      /* --- Form Field Wrapper --- */
+      .form-field {
+        margin-bottom: 1.25rem; /* 20px */
+      }
+      .form-field:last-child {
+        margin-bottom: 0;
+      }
+
+      .form-field label {
+        display: block;
+        font-size: 0.875rem; /* 14px */
+        font-weight: 500;
+        color: var(--text-secondary);
+        margin-bottom: 0.5rem; /* 8px */
+      }
+
+      /* --- Form Inputs --- */
+      .form-input,
+      .form-select,
+      .form-textarea {
+        width: 100%;
+        border: 1px solid var(--border-color);
+        border-radius: 0.5rem; /* 8px */
+        padding: 0.75rem 1rem; /* 12px 16px */
+        font-size: 1rem; /* 16px */
+        box-sizing: border-box; /* Important for padding */
+        transition: border-color 0.2s, box-shadow 0.2s;
+        color: var(--text-primary);
+      }
+      .form-input::placeholder,
+      .form-textarea::placeholder {
+        color: var(--text-muted);
+      }
+      .form-input:focus,
+      .form-select:focus,
+      .form-textarea:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.25);
+      }
+
+      .form-select {
+        appearance: none;
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236B7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+        background-position: right 1rem center;
+        background-repeat: no-repeat;
+        background-size: 1em;
+        padding-right: 2.5rem; /* Make space for arrow */
+      }
+      .form-select:invalid {
+        color: var(--text-muted);
+      }
+      .form-select option {
+        color: var(--text-primary);
+      }
+      /* This is for the "Select a category" disabled option */
+      .form-select option[value=""][disabled] {
+        color: var(--text-muted);
+      }
+
+      .form-textarea {
+        min-height: 80px;
+        resize: vertical;
+      }
+
+      /* Special wrapper for inputs with icons */
+      .input-with-icon {
+        position: relative;
+        display: flex;
+        align-items: center;
+      }
+      .input-with-icon .material-symbols-outlined {
+        position: absolute;
+        left: 1rem; /* 16px */
+        color: var(--text-muted);
+        font-size: 1.25rem; /* 20px */
+        pointer-events: none; /* Make sure it doesn't block focus */
+      }
+      .input-with-icon .form-input {
+        padding-left: 2.75rem; /* 44px */
+      }
+      .input-with-icon .form-input.has-icon-right {
+        padding-left: 1rem;
+        padding-right: 2.75rem;
+      }
+      .input-with-icon .icon-right {
+        left: auto;
+        right: 1rem;
+        cursor: pointer;
+        pointer-events: auto;
+      }
+
+      /* --- Layout for Amount/Date Row --- */
+      .form-row {
+        display: flex;
+        gap: 1.5rem; /* 24px */
+      }
+      .form-row .form-field {
+        flex: 1; /* Make them share space equally */
+      }
+
+      /* --- Form Footer --- */
+      .form-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 0.75rem; /* 12px */
+        padding: 1.5rem; /* 24px */
+        background-color: var(--background-page);
+        border-top: 1px solid var(--border-color-light);
+      }
+
+      .button {
+        padding: 0.625rem 1.25rem; /* 10px 20px */
+        font-size: 0.875rem; /* 14px */
+        font-weight: 500;
+        border-radius: 0.5rem; /* 8px */
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.2s, box-shadow 0.2s, opacity 0.2s;
+      }
+      .button-secondary {
+        background-color: var(--background-white);
+        color: var(--text-secondary);
+        border: 1px solid var(--border-color);
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      }
+      .button-secondary:hover {
+        background-color: var(--background-page);
+      }
+      .button-primary {
+        background-color: var(--primary-color);
+        color: var(--background-white);
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      }
+      .button-primary:hover {
+        background-color: var(--primary-color-hover);
+      }
+      .button-primary:disabled {
+        background-color: var(--primary-color);
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      /* ======================================================
+         ===          REACTIVE FORM VALIDATION STYLES         ===
+         ======================================================
+      */
+
+      /* This selector targets any input, select, or textarea that
+        has the .ng-invalid class (added by Angular)
+        AND
+        has the .ng-touched class (added by Angular after you click/tab away)
+      */
+      .form-input.ng-invalid.ng-touched,
+      .form-select.ng-invalid.ng-touched,
+      .form-textarea.ng-invalid.ng-touched {
+        border-color: var(--error-color);
+        box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.25);
+      }
+
+      /*
+        This is the class for your validation message <div>
+      */
+      .form-error {
+        display: block;
+        color: var(--error-color);
+        font-size: 0.875rem; /* 14px */
+        font-weight: 500;
+        margin-top: 0.5rem; /* 8px */
+      }
+
+      #category {
+        min-height: unset;
+              /* Remove the global 80px limit */
+        height: 2.5rem;
+              /* Sets height to approx 2 lines + padding */
+        resize: none;
+              /* Prevents user from resizing it since it's small */
+        }

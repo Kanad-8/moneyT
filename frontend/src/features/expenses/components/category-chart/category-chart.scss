@@ -1,0 +1,68 @@
+// --- SCSS Variables ---
+      $font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+        Roboto, sans-serif;
+      $bg-white: #ffffff;
+      $text-primary: #111827; // gray-900
+      $text-muted: #6b7280; // gray-500
+      $radius-lg: 0.75rem; // 12px
+      $border-color: #f3f4f6; // gray-100
+
+      :host {
+        display: block;
+        font-family: $font-family;
+      }
+
+      .chart-card {
+        background-color: $bg-white;
+        border-radius: $radius-lg;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.07),
+          0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+      }
+
+      .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.25rem 1.5rem; /* 20px 24px */
+        border-bottom: 1px solid $border-color;
+
+        h2 {
+          font-size: 1.125rem; /* 18px */
+          font-weight: 600;
+          color: $text-primary;
+          margin: 0;
+        }
+      }
+
+      .card-body {
+        padding: 1.5rem; /* 24px */
+      }
+
+      .chart-container {
+        /* This positions the "Chart" label */
+        position: relative;
+        /* Set a default aspect ratio for the chart */
+        width: 100%;
+        max-width: 300px; /* Max size of the chart */
+        margin: 0 auto;
+      }
+
+      .chart-center-label {
+        /* This places the text in the middle */
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: none; /* Lets you click "through" it */
+
+        span {
+          font-size: 1.25rem;
+          font-weight: 600;
+          color: $text-muted;
+        }
+      }

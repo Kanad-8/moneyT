@@ -1,0 +1,118 @@
+
+<div class="dashboard-container">
+  <div class="dashboard-layout">
+
+    <!-- ============================= -->
+    <!-- LEFT COLUMN                   -->
+    <!-- ============================= -->
+    <div class="left-column">
+
+      <!-- ── HERO STATS ─────────────────────────────────────────────────────── -->
+      <section class="stats-hero-row">
+
+        <!-- Total Income: up = GOOD, so trendPositive=true -->
+        <app-stat-card variant="hero" [title]="StatCardData.totalIncome.title"
+          [icon]="StatCardData.totalIncome.icon" [colorClass]="StatCardData.totalIncome.colorClass"
+          [value]="StatCardData.totalIncome.value" [currency]="true"
+          [trend]="StatCardData.totalIncome.trend" [trendPositive]="true">
+        </app-stat-card>
+
+        <!-- Total Spent: up = BAD (default) -->
+        <app-stat-card variant="hero" [title]="StatCardData.totalSpent.title"
+          [icon]="StatCardData.totalSpent.icon" [colorClass]="StatCardData.totalSpent.colorClass"
+          [value]="StatCardData.totalSpent.value" [currency]="true"
+          [trend]="StatCardData.totalSpent.trend">
+        </app-stat-card>
+
+        <!-- Net Saving: up = GOOD -->
+        <app-stat-card variant="hero" [title]="StatCardData.netSaving.title"
+          [icon]="StatCardData.netSaving.icon" [colorClass]="StatCardData.netSaving.colorClass"
+          [value]="StatCardData.netSaving.value" [currency]="true" [trend]="StatCardData.netSaving.trend"
+          [trendPositive]="true">
+        </app-stat-card>
+
+      </section>
+
+      <!-- ── SECONDARY STATS ────────────────────────────────────────────────── -->
+      <section class="stats-secondary-row">
+
+        <app-stat-card variant="secondary" [title]="StatCardData.dailyAverage.title"
+          [icon]="StatCardData.dailyAverage.icon" [colorClass]="StatCardData.dailyAverage.colorClass"
+          [value]="StatCardData.dailyAverage.value" [currency]="true"
+          [unit]="StatCardData.dailyAverage.unit" [trend]="StatCardData.dailyAverage.trend">
+        </app-stat-card>
+
+        <app-stat-card variant="secondary" [title]="StatCardData.savingsRate.title"
+          [icon]="StatCardData.savingsRate.icon" [colorClass]="StatCardData.savingsRate.colorClass"
+          [value]="StatCardData.savingsRate.value" [trend]="StatCardData.savingsRate.trend">
+        </app-stat-card>
+
+        <app-stat-card variant="secondary" [title]="StatCardData.biggestSpike.title"
+          [icon]="StatCardData.biggestSpike.icon" [colorClass]="StatCardData.biggestSpike.colorClass"
+          [value]="StatCardData.biggestSpike.value"
+          [secondaryText]="StatCardData.biggestSpike.secondaryText"
+          [progress]="StatCardData.biggestSpike.progress">
+        </app-stat-card>
+
+      </section>
+      
+
+      <!-- ── CASH FLOW TREND (Full-width chart) ────────────────────────── -->
+      <section class="cashflow-section">
+        <app-monthly-cash-flow-trend-card [data]="data.monthlyCashFlowResponse" />
+      </section>
+
+      <!-- ── RECENT TRANSACTIONS (Income + Expenses split) ─────────────── -->
+      <section class="transactions-section">
+        <div class="transaction-split">
+
+          <app-transaction-list-component mode="expense" title="Recent Transactions" [items]="recentTransactions"
+            (edit)="onEditExpense($event)" (delete)="onDeleteExpense($event)" (viewAll)="onViewAllExpenses()" />
+
+          <app-transaction-list-component mode="income" title="Recent Income" [items]="recentIncomes"
+            (edit)="onEditIncome($event)" (delete)="onDeleteIncome($event)" (viewAll)="onViewAllIncome()" />
+
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ============================= -->
+    <!-- RIGHT SIDEBAR                 -->
+    <!-- ============================= -->
+    <div class="right-column">
+
+      <!-- ── Spending by Category ──────────────────────────────────────── -->
+      <section class="sidebar-section">
+        <app-spending-category-card [categories]="data.categoryBreakdown">
+        </app-spending-category-card>
+      </section>
+
+      <!-- ── Overall Monthly Budget ────────────────────────────────────── -->
+      <section class="sidebar-section">
+        <app-overall-monthly-budget-card [data]="chartData">
+        </app-overall-monthly-budget-card>
+      </section>
+
+      <!-- ── Projected Monthly Total ───────────────────────────────────── -->
+      <section class="sidebar-section">
+        <app-projected-forecast-card [totalBudget]="this.data.projectedMonTotal.totalBudget" [totalSpent]="this.data.stats.totalSpentC"
+          [predictedAmount]="this.data.projectedMonTotal.totalPredicted">
+        </app-projected-forecast-card>
+      </section>
+
+      <!-- ── Safe Daily Allowance ──────────────────────────────────────── -->
+      <section class="sidebar-section">
+        <app-stat-card variant="secondary" [title]="StatCardData.safeDailyAllowance.title"
+          [icon]="StatCardData.safeDailyAllowance.icon"
+          [colorClass]="StatCardData.safeDailyAllowance.colorClass"
+          [value]="StatCardData.safeDailyAllowance.value" [currency]="true"
+          [unit]="StatCardData.safeDailyAllowance.unit" [trend]="StatCardData.safeDailyAllowance.trend"
+          [secondaryText]="StatCardData.safeDailyAllowance.secondaryText">
+        </app-stat-card>
+      </section>
+
+    </div>
+
+  </div>
+</div>

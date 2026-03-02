@@ -1,0 +1,126 @@
+// Variables
+$gap-size: 1.25rem;    // Standard gap (~20px)
+$small-gap: 0.75rem;   // REDUCED gap (~12px) for the top section
+$page-padding: 1.5rem; // ~24px
+$bg-color: #f9fafb;
+
+.dashboard-container {
+  height: 100vh;
+  width: 100%;
+  background-color: $bg-color;
+  overflow: hidden;
+  
+  display: flex;
+  flex-direction: column;
+  padding: 0.0rem $page-padding $page-padding $page-padding;
+  box-sizing: border-box;
+  
+  // REMOVED 'gap: $gap-size;' here so we can control spacing individually
+}
+
+// --- 1. Top Bar (Fixed Height) ---
+.top-bar-section {
+  flex-shrink: 0;
+  
+  // NEW: Only 12px space below the Top Bar (Tighter look)
+  margin-bottom: 0.0rem; 
+}
+
+// --- 2. Summary Card (Fixed Height) ---
+.summary-section {
+  flex-shrink: 0;
+  
+  // Standard 20px space below the Summary before the Grid starts
+  margin-bottom: $gap-size; 
+}
+
+// --- 3. Content Grid (Fills Remaining Space) ---
+.content-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr; 
+  gap: $gap-size;
+  
+  flex: 1; 
+  min-height: 0; 
+}
+
+// ... (Rest of the CSS remains exactly the same) ...
+
+// --- LEFT COLUMN ---
+.main-column {
+  height: 100%; 
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+
+  .scrollable-list-wrapper {
+    flex: 1;      
+    height: 100%; 
+    
+    ::ng-deep app-budget-category-summary-card {
+      display: block;
+      // CHANGE: from 'height: 100%' to 'max-height: 100%'
+      // This allows the card to shrink to fit your 4 items if needed,
+      // but prevents it from growing beyond the screen.
+      max-height: 100%; 
+      
+      // OPTIONAL: If you want the gray background to show below the card
+      // instead of stretching the white card, remove 'height: 100%' entirely from here.
+    }
+  }
+}
+
+// --- RIGHT COLUMN ---
+.side-column {
+  display: flex;
+  flex-direction: column;
+  gap: $gap-size;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+
+  // 1. Categories Nearing Limit (Top Card)
+  // Making this smaller (e.g., flex: 2)
+  app-category-limit-card {
+    flex: 2;       // Takes ~40% of the height
+    min-height: 0;
+    display: block;
+    height: 100%;
+  }
+
+  // 2. Unbudgeted Spending (Bottom Card)
+  // Making this larger (e.g., flex: 3)
+  app-unbudgeted-card {
+    flex: 3;       // Takes ~60% of the height
+    min-height: 0;
+    display: block;
+    height: 100%;
+  }
+}
+
+// --- MOBILE RESPONSIVENESS ---
+@media (max-width: 1024px) {
+  .dashboard-container {
+    height: auto;
+    overflow-y: auto;
+    gap: 1rem; // Restore a standard gap on mobile for simplicity
+  }
+  
+  .top-bar-section, .summary-section {
+    margin-bottom: 0; // Let the gap property handle it on mobile
+  }
+
+  .content-grid {
+    grid-template-columns: 1fr;
+    flex: none;
+  }
+  
+  .main-column { height: 500px; }
+  .side-column { height: auto; }
+  
+  app-category-limit-card, 
+  app-unbudgeted-card {
+    height: 300px;
+    margin-bottom: 1rem;
+  }
+}

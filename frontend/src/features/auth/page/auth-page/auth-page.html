@@ -1,0 +1,93 @@
+<div class="auth-container">
+    
+  <!-- App Logo -->
+  <div class="logo-container">
+    <span class="material-icons logo-icon">savings</span>
+    <span class="logo-text">MoneyT</span>
+  </div>
+
+  <!-- Auth Card -->
+  <div class="auth-card">
+    
+    <!-- Tab Navigation -->
+    <nav class="auth-tabs">
+      <button 
+        type="button"
+        (click)="setActiveTab('login')"
+        [class.active]="activeTab === 'login'"
+        class="tab-btn">
+        Login
+      </button>
+      <button 
+        type="button"
+        (click)="setActiveTab('signup')"
+        [class.active]="activeTab === 'signup'"
+        class="tab-btn">
+        Sign Up
+      </button>
+    </nav>
+
+    <!-- Form Container -->
+    <div class="form-container">
+
+      <!-- Alert Messages -->
+       @if (errorMessage) {
+        <div class="alert alert-error">
+        {{ errorMessage }}
+        </div>
+       }
+      
+       @if (successMessage) {
+        <div class="alert alert-success">
+        {{ successMessage }}
+        </div>
+       }
+     
+      <!-- === LOGIN FORM === -->
+       @if (activeTab =='login') {
+        <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
+        <div class="form-group">
+          <label for="login-email">Email Address</label>
+          <input formControlName="email" type="email" id="login-email" class="form-control">
+        </div>
+        <div class="form-group">
+          <div class="label-row">
+            <label for="login-password">Password</label>
+          </div>
+          <input formControlName="password" type="password" id="login-password" class="form-control">
+        </div>
+        
+        <button type="submit" [disabled]="loginForm.invalid || isLoading" class="btn-primary">
+          {{ isLoading ? 'Logging in...' : 'Login' }}
+        </button>
+        </form>
+
+       }
+      
+       @if(activeTab=="signup"){
+        <form [formGroup]="signupForm" (ngSubmit)="onSignupSubmit()">
+        <div class="form-group">
+          <label for="signup-username">Username</label>
+          <input formControlName="username" type="text" id="signup-username" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="signup-email">Email Address</label>
+          <input formControlName="email" type="email" id="signup-email" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="signup-password">Create Password</label>
+          <input formControlName="password" type="password" id="signup-password" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="signup-confirm-password">Confirm Password</label>
+          <input formControlName="confirmPassword" type="password" id="signup-confirm-password" class="form-control">
+        </div>
+        
+        <button type="submit" [disabled]="signupForm.invalid || isLoading" class="btn-primary">
+          {{ isLoading ? 'Creating Account...' : 'Create Account' }}
+        </button>
+        </form>
+      }
+    </div>
+  </div>
+</div>

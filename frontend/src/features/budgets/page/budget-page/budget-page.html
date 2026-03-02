@@ -1,0 +1,33 @@
+<div class="dashboard-container">
+  
+  <header class="top-bar-section">
+    <app-budget-top-bar (nextMonth)="nextMonth()" (prevMonth)="prevMonth()" (createBudget)="openModal()" [currentMonthYear]="selectedMonth+' '+selectedYear "></app-budget-top-bar>
+  </header>
+
+  @if(isModalOpen){
+    <app-budget-form 
+    (close)="closeModal()"
+    (save)="handleSaveBudget($event)"
+    ></app-budget-form>
+  }
+  <section class="summary-section">
+    <app-budget-summary-card [summary]="summary"></app-budget-summary-card>
+  </section>
+
+  <div class="content-grid">
+    
+    <div class="main-column">
+      <div class="scrollable-list-wrapper">
+        <app-budget-category-summary-card [categories]="categorySummary">
+        </app-budget-category-summary-card>
+      </div>
+    </div>
+
+    <aside class="side-column">
+      <app-category-limit-card [nearingCategories]="riskyBudgets"></app-category-limit-card>
+      <app-unbudgeted-card [List]="unBudgetedSpending"></app-unbudgeted-card>
+    </aside>
+
+  </div>
+
+</div>

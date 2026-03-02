@@ -1,0 +1,137 @@
+// Variables
+$primary-color: #4f46e5;    // The purple bar color
+$text-dark: #1f2937;
+$text-light: #6b7280;
+$green-text: #10b981;       // For "Remaining" value
+$bg-white: #ffffff;
+$border-color: #e5e7eb;
+$track-color: #f3f4f6;      // Light gray background of the bar
+
+.budget-card {
+  background-color: $bg-white;
+  border: 1px solid $border-color;
+  border-radius: 0.75rem;     // rounded-xl
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  width: 100%;
+  box-sizing: border-box;
+  
+  // Header: Flex to push Title left and Amount right
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+
+    .title-group {
+      h3 {
+        font-size: 1.125rem; // 18px
+        font-weight: 500;
+        color: $text-dark;
+        margin: 0 0 0.25rem 0;
+      }
+      .subtext {
+        font-size: 0.875rem; // 14px
+        color: $text-light;
+      }
+    }
+
+    .big-amount {
+      font-size: 1.5rem;     // 24px - Large text
+      font-weight: 700;
+      color: $text-dark;
+    }
+  }
+
+  // Progress Bar
+  .progress-track {
+    width: 100%;
+    height: 0.75rem;         // 12px height
+    background-color: $track-color;
+    border-radius: 999px;    // Fully pill-shaped
+    overflow: hidden;        // Ensures the inner fill doesn't spill out
+    margin-bottom: 1.5rem;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background-color: $primary-color;
+    border-radius: 999px;
+    transition: width 0.5s ease-in-out; // Smooth animation on update
+  }
+
+  // Bottom Stats Grid
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; // 3 Equal columns
+    gap: 1rem;
+    padding-top: 0.5rem;
+  }
+
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+
+    .label {
+      font-size: 0.75rem; // 12px
+      color: $text-light;
+      font-weight: 500;
+    }
+
+    .value {
+      font-size: 1rem;
+      font-weight: 700;
+      color: $text-dark;
+    }
+
+    // Green color specifically for the remaining amount
+    .highlight-green {
+      color: $green-text;
+    }
+  }
+
+  // The vertical divider lines between stats
+  .center-border {
+    position: relative;
+    padding-left: 1.5rem;
+    
+    // Left Border
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 10%;
+      height: 80%;
+      width: 1px;
+      background-color: $border-color;
+    }
+
+    // Right Border (conceptually belongs to the next item, 
+    // but we can add a border-right to this item instead for simplicity)
+    border-right: 1px solid $border-color;
+    padding-right: 1.5rem;
+    margin-right: 1.5rem;
+  }
+
+  // Mobile Tweaks
+  @media (max-width: 600px) {
+    .header {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    
+    .stats-grid {
+      grid-template-columns: 1fr; // Stack vertically
+      gap: 1.5rem;
+    }
+    
+    // Remove borders on mobile stack
+    .center-border {
+      border-right: none;
+      padding: 0;
+      margin: 0;
+      &::before { display: none; }
+    }
+  }
+}
