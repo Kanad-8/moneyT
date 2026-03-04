@@ -37,7 +37,12 @@ public class IncomeService {
         if(startDate == null) startDate = LocalDate.of(2000,1,1);
         if(endDate == null) endDate = LocalDate.now();
 
-        Page<Income> incomePage =incomeRepository.findFilteredIncome(userId,category,startDate,endDate,pageable);
+      Page<Income> incomePage;
+
+        if(category == null){
+          incomePage =incomeRepository.findFilteredIncomeAllSources(userId,startDate,endDate,pageable);
+        }else   incomePage =incomeRepository.findFilteredIncomeBySource(userId,category,startDate,endDate,pageable);
+
 
         return incomePage.map(this::mapToResponse);
     }
@@ -103,9 +108,8 @@ public class IncomeService {
         Pageable pageable = PageRequest.of(0, limit, Sort.by("incomeDate").descending());
 
         // Fetch using the repository method we created earlier
-        Page<Income> page = incomeRepository.findFilteredIncome(
+        Page<Income> page = incomeRepository.findFilteredIncomeAllSources(
                 userId,
-                null,
                 LocalDate.of(2000, 1, 1),
                 LocalDate.now(),
                 pageable
@@ -123,7 +127,7 @@ public class IncomeService {
     }
 
     public BigDecimal getNetSavings(Long userId,YearMonth ym){
-        BigDecimal totalExpense = this.expenseRepository.calculateTotalSpent(userId,ym.getMonthValue(),ym.getYear(),null);
+        BigDecimal totalExpense = this.expenseRepository.calculateTotalSpentAllCategories(userId,ym.getMonthValue(),ym.getYear());
         BigDecimal totalIncome = this.incomeRepository.calculateTotalIncome(userId,ym.atDay(1),ym.atEndOfMonth());
         return totalIncome.subtract(totalExpense);
     }

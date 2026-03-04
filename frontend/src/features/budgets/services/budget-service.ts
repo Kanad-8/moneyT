@@ -7,13 +7,14 @@ import { BudgetSummary } from '../../../core/models/BudgetModel/BudgetSummary';
 import { CategoryLimit } from '../../../core/models/BudgetModel/CategoryLimit';
 import { CategoryBudget } from '../../../core/models/BudgetModel/CategoryBudget';
 import { UnBudgetedCategory } from '../../../core/models/BudgetModel/UnBudgetedCategory';
+import { environment } from '../../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BudgetService {
 
-  private apiUrl ='http://localhost:8080/budgets';
+  private apiUrl =environment.apiUrl+'/budgets';
 
   private budgetsSubject = new BehaviorSubject<Budget[]>([]);
   public budgets$ = this.budgetsSubject.asObservable();

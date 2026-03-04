@@ -55,7 +55,7 @@ public class DashboardService {
 
         DashboardOverview overview = new DashboardOverview();
 
-        ExpenseStatsResponse expenseStats = expenseRepository.getStats(userId, startDate,endDate,null);
+        ExpenseStatsResponse expenseStats = expenseRepository.getStatsAllCategories(userId, startDate,endDate);
         BudgetSummaryResponse budgetSummaryResponse = budgetService.getBudgetSummary(userId,monthString(startDate.getMonth().getValue()),startDate.getYear());
 
 
@@ -79,7 +79,7 @@ public class DashboardService {
         LocalDate endDateP = ymP.atEndOfMonth();
 
         BigDecimal totalIncome = incomeRepository.calculateTotalIncome(userId, startDate, endDate);
-        ExpenseStatsResponse expenseStatsP = expenseRepository.getStats(userId, startDateP,endDateP,null);
+        ExpenseStatsResponse expenseStatsP = expenseRepository.getStatsAllCategories(userId, startDateP,endDateP);
 
         BigDecimal averageTransactionP = expenseStatsP.getAverageTransaction();
         BigDecimal dailySafeLimit=getDailySafeLimit(userId,startDate.getMonth().getValue(),startDate.getYear());
@@ -175,13 +175,13 @@ public class DashboardService {
         LocalDate endDateC = ymC.atEndOfMonth();
         LocalDate startDateC = ymC.atDay(1);
 
-        ExpenseStatsResponse currentMon = expenseRepository.getStats(userId,startDateC,endDateC,null);
+        ExpenseStatsResponse currentMon = expenseRepository.getStatsAllCategories(userId,startDateC,endDateC);
 
         YearMonth ymP = ymC.minusMonths(1);
         LocalDate endDateP = ymP.atEndOfMonth();
         LocalDate startDateP = ymP.atDay(1);
 
-        ExpenseStatsResponse previousMon = expenseRepository.getStats(userId,startDateP,endDateP,null);
+        ExpenseStatsResponse previousMon = expenseRepository.getStatsAllCategories(userId,startDateP,endDateP);
 
         if(previousMon.getTotalAmount().equals(BigDecimal.ZERO)) {
              percentage = BigDecimal.valueOf(0);
@@ -236,7 +236,7 @@ public class DashboardService {
 
         // 1. Get Actual Spent (Reuse your existing method or variable)
         // Ideally, pass this IN as a parameter to avoid re-querying DB
-        BigDecimal totalSpent = this.expenseRepository.calculateTotalSpent(userId, month, year, null);
+        BigDecimal totalSpent = this.expenseRepository.calculateTotalSpentAllCategories(userId, month, year);
         if (totalSpent == null) totalSpent = BigDecimal.ZERO;
 
         // 2. Get Total Budget (Handle Null)
@@ -285,7 +285,7 @@ public class DashboardService {
     private BigDecimal getDailySafeLimit(Long userId, int month , int year){
         YearMonth ym = YearMonth.of(year,month);
         BigDecimal totalIncome = incomeRepository.calculateTotalIncome(userId,ym.atDay(1),ym.atEndOfMonth());
-        BigDecimal totalExpense = expenseRepository.calculateTotalSpent(userId,month,year,null);
+        BigDecimal totalExpense = expenseRepository.calculateTotalSpentAllCategories(userId,month,year);
 
         if(totalIncome == null) totalIncome = BigDecimal.ZERO;
         if(totalExpense == null) totalExpense =BigDecimal.ZERO;

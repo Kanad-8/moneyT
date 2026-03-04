@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/expenses")
+@RequestMapping("api/expenses")
 public class ExpenseController {
 
     @Autowired

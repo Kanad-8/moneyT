@@ -4,12 +4,13 @@ import { HttpClient,HttpParams } from '@angular/common/http';
 import { BehaviorSubject,catchError,map,Observable, tap, throwError } from 'rxjs';
 import { FilterState } from '../../../core/models/FilterState';
 import { FilterState2 } from '../../../core/models/FilterState';
+import { environment } from '../../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
 })
 export class IncomeService {
-    private apiUrl = 'http://localhost:8080/income';
+    private apiUrl = environment.apiUrl+'/income';
 
   private incomeList = new BehaviorSubject<Income[]>([]);
   public incomeList$ = this.incomeList.asObservable();

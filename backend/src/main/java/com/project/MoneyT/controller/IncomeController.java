@@ -23,7 +23,7 @@ import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/income")
+@RequestMapping("api/income")
 public class IncomeController {
 
     private final IncomeService incomeService;

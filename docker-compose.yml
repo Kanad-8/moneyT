@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+
+  db:
+    image: postgres:15-alpine
+    container_name: moneyt-db
+    environment:
+      POSTGRES_DB: moneyt
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: moneyt-backend
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/moneyt
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      JWT_SECRET: o0fNj+X9V2lQ7UY6CXRjvgwdyJUbKtbW4Q1+nfG3JcGhZtSK8LmZ8PA6EWvXJcyXoKmPbgBtq8FiD6wlMxj2/Q==
+      JWT_EXPIRATION: 86400000
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: on-failure
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: moneyt-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: on-failure
+
+volumes:
+  pgdata:

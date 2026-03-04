@@ -6,13 +6,14 @@ import { ExpenseFilters } from '../../../core/models/ExpenseModel/ExpenseFilters
 import { ExpenseDashboardSummary } from '../../../core/models/ExpenseModel/ExpenseDashboardSummary';
 import { FilterState, FilterState2 } from '../../../core/models/FilterState';
 import { BarElement } from 'chart.js';
+import { environment } from '../../../environments/environment.prod';
 
 
 @Injectable({
   providedIn: 'root',
 })
 export class ExpenseService {
-  private apiUrl ='http://localhost:8080/expenses'
+  private apiUrl =environment.apiUrl+'/expenses'
 
   private expenseList = new BehaviorSubject<Expenses[]>([]);
   public expenseList$ = this.expenseList.asObservable();

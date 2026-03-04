@@ -2,13 +2,14 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable, OnInit, runInInjectionContext } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DashboardOverview } from '../../../core/models/DashboardModel/DashboardOverview';
+import { environment } from '../../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DashboardService {
 
-  private apiUrl='http://localhost:8080/dashboard-overview';
+  private apiUrl=environment.apiUrl+'/dashboard-overview';
 
   constructor(){}
   private http = inject(HttpClient);

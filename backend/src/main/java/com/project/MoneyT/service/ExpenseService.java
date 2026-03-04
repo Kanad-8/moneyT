@@ -44,8 +44,11 @@ public class ExpenseService {
 
         if(startDate == null) startDate = LocalDate.of(2000,1,1);
         if(endDate == null) endDate = LocalDate.now();
+        Page<Expense> expensePage;
+        if(category == null ) expensePage =expenseRepository.findFilteredExpenseAllCategories(userId,startDate,endDate,pageable);
+        else   expensePage =expenseRepository.findFilteredExpenseByCategory(userId,category,startDate,endDate,pageable);
 
-        Page<Expense> expensePage =expenseRepository.findFilteredExpense(userId,category,startDate,endDate,pageable);
+
 
         return expensePage.map(this::mapToResponse);
     }
@@ -109,7 +112,7 @@ public class ExpenseService {
 
         Pageable pageable = PageRequest.of(0,limit,Sort.by("expenseDate").descending());
 
-        Page<Expense> page = expenseRepository.findFilteredExpense(userId,null,LocalDate.of(2000,1,1),LocalDate.now(),pageable);
+        Page<Expense> page = expenseRepository.findFilteredExpenseAllCategories(userId,LocalDate.of(2000,1,1),LocalDate.now(),pageable);
 
         return page.getContent().stream()
                 .map(this::mapToResponse)
@@ -118,26 +121,27 @@ public class ExpenseService {
 
     //Get Stats
     public ExpenseDashboardResponse getStats(Long userId, LocalDate startDate, LocalDate endDate,String category){
+      ExpenseStatsResponse stats;
+      ExpenseDashboardResponse response = new ExpenseDashboardResponse();
+      if(category == null ) stats =  expenseRepository.getStatsAllCategories(userId,startDate,endDate);
+      else  stats =  expenseRepository.getStatsByCategory(userId,startDate,endDate,category);
+      BeanUtils.copyProperties(stats,response);
+      response.setCategoryBreakdown(this.getCategoryBreakdownExpense(userId,startDate,endDate));
 
-        ExpenseDashboardResponse response = new ExpenseDashboardResponse();
-        ExpenseStatsResponse stats =  expenseRepository.getStats(userId,startDate,endDate,category);
-        BeanUtils.copyProperties(stats,response);
-        response.setCategoryBreakdown(this.getCategoryBreakdownExpense(userId,startDate,endDate));
-
-        return response;
+      return response;
     }
 
     //Get Category Breakdown
     public List<CategoryBreakdownResponse> getCategoryBreakdown(Long userId,LocalDate startDate,LocalDate endDate){
         if(startDate == null) {
-            startDate = LocalDate.MIN;
+           startDate = LocalDate.of(2000, 1, 1);
             logger.log(SEVERE,"StartDate is null");
 
         }
         if(endDate == null) endDate = LocalDate.now();
 
         List<CategoryBreakdownResponse> list = expenseRepository.getCategoryBreakdown(userId,startDate,endDate);
-        BigDecimal totalSpent = expenseRepository.calculateTotalSpent(userId, startDate.getMonth().getValue(),startDate.getYear(),null );
+        BigDecimal totalSpent = expenseRepository.calculateTotalSpentAllCategories(userId, startDate.getMonth().getValue(),startDate.getYear());
 
         for( CategoryBreakdownResponse c :list){
             c.setPercentage(c.getPercentage().divide(totalSpent,2, RoundingMode.HALF_UP).multiply(BigDecimal.valueOf(100)));
@@ -148,7 +152,7 @@ public class ExpenseService {
 
     public List<CategoryBreakdownResponse> getCategoryBreakdownExpense(Long userId,LocalDate startDate,LocalDate endDate){
         if(startDate == null) {
-            startDate = LocalDate.MIN;
+           startDate = LocalDate.of(2000, 1, 1);
             logger.log(SEVERE,"StartDate is null");
 
         }
@@ -157,7 +161,7 @@ public class ExpenseService {
         return expenseRepository.getCategoryBreakdown(userId,startDate,endDate);
     }
 
-    
+
 
     private ExpenseResponse mapToResponse(Expense entity){
         ExpenseResponse dto = new ExpenseResponse();
@@ -186,7 +190,7 @@ public class ExpenseService {
 
     }
 
-    
+
 
 
 

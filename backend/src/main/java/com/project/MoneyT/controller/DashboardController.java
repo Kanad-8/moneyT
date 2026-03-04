@@ -16,7 +16,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("/dashboard-overview")
+@RequestMapping("api/dashboard-overview")
 public class DashboardController {
 
     @Autowired

@@ -86,7 +86,7 @@ public class BudgetService {
 
         //Recalculate spent
         int monthInt = monthInt(updated.getMonth());
-        BigDecimal spent = expenseRepository.calculateTotalSpent(userId,monthInt,updated.getYear(),updated.getCategory());
+        BigDecimal spent = expenseRepository.calculateTotalSpentByCategory(userId,monthInt,updated.getYear(),updated.getCategory());
 
         return mapToBudgetResponse(updated,spent == null ? BigDecimal.ZERO :spent);
 
