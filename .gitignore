@@ -4,6 +4,8 @@ backend/.idea/
 backend/*.iml
 backend/.mvn/
 
+backend-log.txt
+
 # NEVER push credentials
 backend/src/main/resources/application.properties
 backend/src/main/resources/application-prod.properties
