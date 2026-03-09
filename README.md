@@ -458,11 +458,9 @@ git push origin feature/your-feature
 
 
 
-\## 📄 License
 
 
 
-MIT License — free to use and modify.
 
 
 
