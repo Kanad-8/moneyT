@@ -144,7 +144,7 @@ Runs frontend + backend + database in one command. No manual setup needed.
 
 ```bash
 # Clone the repo
-git clone https://github.com/YOUR-USERNAME/moneyt.git
+git clone https://github.com/Kanad-8/moneyt.git
 cd moneyt
 
 # Start everything
